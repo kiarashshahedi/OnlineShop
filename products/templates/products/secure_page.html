@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Welcome to the Secure Page, {{ user.username }}!</h2>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <p>This is a secure area only accessible to authenticated users. You can customize this page according to your project's requirements.</p>
+        
+        <h3>User Information:</h3>
+        <ul>
+          <li><strong>Username:</strong> {{ user.username }}</li>
+          <li><strong>Email:</strong> {{ user.email }}</li>
+          <!-- Add more user information as needed -->
+        </ul>
+      </div>
+      
+      <div class="col-md-6">
+        <!-- Add additional content or features specific to your secure page -->
+      </div>
+    </div>
+
+    <form method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+  </div>
+{% endblock %}

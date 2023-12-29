@@ -1,0 +1,44 @@
+<!-- base_generic.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Your head content, including CSS links, title, etc. -->
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'home' %}">Your Site</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <!-- ... other navigation links ... -->
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'secure_page' %}">Secure Page</a>
+        </li>
+        <li class="nav-item">
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="nav-link btn btn-link">Logout</button>
+          </form>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+{% block content %}
+  <!-- Content specific to each page goes here -->
+{% endblock %}
+
+<!-- Your scripts and other footer content -->
+
+</body>
+</html>
