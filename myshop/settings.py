@@ -1,5 +1,6 @@
 
 from pathlib import Path
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -18,7 +19,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# ---------------------------------Application definition------------------------------
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,7 +33,6 @@ INSTALLED_APPS = [
     'djangosecure',
     'csp',
     'payments',
-    'django_cache_middleware',
 ]
 
 MIDDLEWARE = [
@@ -44,14 +44,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'djangosecure.middleware.SecurityMiddleware',
-    'csp.middleware.CSPMiddleware',
-    'django_cache_middleware.middleware.UpdateCacheMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
-    'django_cache_middleware.middleware.CacheMiddleware',
-
-
 ]
+
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 
@@ -76,9 +70,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'myshop.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+#---------------------------------------------- Database---------------------------------------------
 
 DATABASES = {
     'default': {
@@ -88,9 +80,7 @@ DATABASES = {
 }
 
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+#--------------------------------------- Password validation----------------------------------------
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -108,8 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
+# ---------------------------------------Internationalization--------------------------------
 
 LANGUAGE_CODE = 'en-us'
 
@@ -120,52 +109,66 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
+# -------------------------Static files (CSS, JavaScript, Images)------------------------------------
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+#----------------------------- Default primary key field type-------------------------------
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-# https settings :
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-#------------------------------
-# Enable secure browser settings
-SECURE_BROWSER_XSS_FILTER = True
+#------------------------------------ https settings:----------------------------------------
+
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+#-----------------------------------Configure django-secure settings--------------------------
+
 X_FRAME_OPTIONS = 'DENY'
-SECURE_CONTENT_TYPE_NOSNIFF = True
-#----------------------------------
-# Configure django-secure settings
-SECURE_HSTS_SECONDS = 31536000  # One year
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_BROWSER_XSS_FILTER = True
-#-----------------------------------------
-# Configure CSP settings
+SECURE_BROWSER_XSS_FILTER = False  
+SECURE_CONTENT_TYPE_NOSNIFF = False
+SECURE_HSTS_SECONDS = 31536000  
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_REDIRECT_EXEMPT = []  
+
+#-----------------------------------Configure CSP settings-----------------------------------
+
 CSP_DEFAULT_SRC = ("'self'",)
-#----------------------------------------
-# Enable cache and configure cache backend
+
+#------------------------------------Enable cache and configure cache backend------------------
+
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': '127.0.0.1:11211',  # Adjust this based on your Memcached server configuration.
+        # Adjust this based on your Memcached server configuration.
+        'LOCATION': '127.0.0.1:11211',  
     }
 }
 
-#--------------------------------------------------------------------------
-# Payment backends
+#-------------------------------------Payment backends------------------------------------
+
 PAYMENT_BACKENDS = [
     'payments.backends.stripe.StripePayments',
 ]
-#--------------------------------------------------------
-# Stripe API keys
+#---
+PAYMENT_HOST = 'example.com'
+#---
+PAYMENT_VARIANTS = {
+    'default': ('payments.variants.StripePaymentsProvider', {
+        'secret_key': 'your_stripe_secret_key',  # Replace with your Stripe secret key
+        'public_key': 'your_stripe_public_key',  # Replace with your Stripe public key
+        'store_name': 'Your Store Name',  # Replace with your store name
+    }),
+}
+
+#----------------------------------------- Stripe API keys---------------------------------------------
+
 STRIPE_PUBLIC_KEY = 'your_stripe_public_key'
 STRIPE_SECRET_KEY = 'your_stripe_secret_key'
+
 #-----------------------------------------------------
-PAYMENT_HOST = 'example.com'

@@ -1,8 +1,4 @@
 from django.db import models
-
-# Create your models here.
-# cart/models.py
-from django.db import models
 from products.models import Product
 
 class Cart(models.Model):

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from payments import urls as payments_urls
+from AllPayments import urls as payments_urls
 
 
 urlpatterns = [
