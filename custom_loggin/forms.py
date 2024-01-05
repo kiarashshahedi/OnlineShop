@@ -1,10 +1,10 @@
-#from django import forms
-#from django.contrib.auth.forms import UserCreationForm
-#from .models import MyUser
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from . import models
 
-#class CustomUserCreationForm(UserCreationForm):
-#    class Meta(UserCreationForm.Meta):
-#        model = MyUser
-#        fields = UserCreationForm.Meta.fields + ('email',)
 
+class RegisterForm(forms.ModelForm):
+    class Meta:
+        model = models.MyUser
+        fields = ['mobile', ]
 #---------------------------------------------------------

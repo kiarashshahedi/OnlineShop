@@ -19,7 +19,7 @@ class MyUser(AbstractUser):
 
     REQUIRED_FIELDS = []
 
-    backend = ''
+    backend = 'custom_loggin.backend.ModelBackend'
 
 # class UserProfile(models.Model):
 #     user = models.OneToOneField(MyUser, on_delete=models.CASCADE)

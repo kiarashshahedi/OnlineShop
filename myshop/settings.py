@@ -177,4 +177,15 @@ STRIPE_PUBLIC_KEY = 'your_stripe_public_key'
 STRIPE_SECRET_KEY = 'your_stripe_secret_key'
 
 #-----------------------------------------------------
+
 AUTH_USER_MODEL = 'custom_loggin.MyUser'
+
+#--------------- authentication backend -----------------
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'custom_loggin.backend.ModelBackend',                     
+                           
+                           
+]
+
+KAVENEGAR_API = '6550364A49313154626F717A544356532B71686A6550485A487A52573731344F7863797732416D513372633D'

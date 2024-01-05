@@ -1,9 +1,18 @@
+
+from .forms import RegisterForm
+from django.contrib.auth import login
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import render
+from .models import MyUser
+from . import kavesms
+
+
+#--------------------------------------------------------------------------------------------
 # from django.contrib.auth.decorators import login_required
 # from django.contrib.auth import authenticate, login, logout
 # from django.shortcuts import render, redirect
 # from django.contrib import messages
-# from .forms import CustomUserCreationForm
-
 
 # def signup(request):
 #     if request.method == 'POST':
@@ -35,3 +44,48 @@
 #     logout(request)
 #     messages.success(request, 'Logout successful.')
 #     return redirect('products/product_list')
+#----------------------------------------------------------------------------------------------
+# def login(request):
+#     if request.method == "POST":
+#         if "mobile" in request.POST:
+#             mobile = request.POST.get(mobile)
+#             user = MyUser.objects.get(mobile = mobile)
+#             login(request, user)
+#             return HttpResponseRedirect(reverse('dashboard'))
+#     return render(request, 'login.html')
+#------------------------------------------------------------------------
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+def register_view(request):
+    form = RegisterForm
+    if request.method == "POST":
+        try:
+            if "mobile" in request.POST:
+                mobile = request.POST.get('mobile')
+                user = MyUser.objects.get(mobile=mobile)
+                #send otp
+                otp = kavesms.get_rndom_otp
+                kavesms.send_otp(mobile, otp)
+                #save otp
+                user.otp = otp
+                user.save()
+                #redirect to page
+                return HttpResponseRedirect(reverse('verify'))
+        except MyUser.DoesNotExist:
+            form = RegisterForm(request.POST)
+            if form.is_valid():
+                user = form.save(commit = False)
+                #send otp
+                otp = kavesms.get_rndom_otp
+                kavesms.send_otp(mobile, otp)
+                #save otp
+                user.otp = otp
+                user.is_active = False
+                user.save()
+                #redirecting to verify page
+                return HttpResponseRedirect(reverse('verify'))
+    return render(request, 'register.html', {'form': form})
+
+def verify(request):
+    return render(request, 'verify.html')
