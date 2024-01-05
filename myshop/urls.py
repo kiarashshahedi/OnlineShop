@@ -5,7 +5,8 @@ from AllPayments import urls as payments_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('accounts.urls')),
-    path('', include('products.urls')),
+    path('login/', include('custom_loggin.urls')),
+    #path('home/', include('home.urls')),
     path('payments/', include(payments_urls)),
+    path('', include('products.urls')),
 ]

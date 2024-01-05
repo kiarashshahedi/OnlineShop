@@ -2,7 +2,7 @@ from django.db import models
 from products.models import Product
 
 class Cart(models.Model):
-    user = models.ForeignKey('accounts.CustomUser', on_delete=models.CASCADE)
+    user = models.ForeignKey('custom_loggin.MyUser', on_delete=models.CASCADE)
     products = models.ManyToManyField(Product, through='CartItem')
 
 class CartItem(models.Model):

@@ -28,11 +28,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'AllPayments',
+    'cart',
+    'checkout',
     'products',
-    'accounts',
     'djangosecure',
     'csp',
     'payments',
+    'custom_loggin',
+
+    
+   
 ]
 
 MIDDLEWARE = [
@@ -102,24 +108,23 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # -------------------------Static files (CSS, JavaScript, Images)------------------------------------
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
 
 
 #----------------------------- Default primary key field type-------------------------------
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = 'accounts.CustomUser'
 
 #------------------------------------ https settings:----------------------------------------
 
@@ -172,3 +177,4 @@ STRIPE_PUBLIC_KEY = 'your_stripe_public_key'
 STRIPE_SECRET_KEY = 'your_stripe_secret_key'
 
 #-----------------------------------------------------
+AUTH_USER_MODEL = 'custom_loggin.MyUser'
