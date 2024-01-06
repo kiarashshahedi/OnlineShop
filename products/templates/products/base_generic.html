@@ -1,9 +1,26 @@
-<!-- base_generic.html -->
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Your head content, including CSS links, title, etc. -->
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Page Title{% endblock %}</title>
+
+    <!-- Include any additional meta tags, stylesheets, or scripts here -->
+
+    <!-- Bootstrap CSS (example, you can replace with your preferred CSS framework) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- Your custom CSS file (replace with the path to your CSS file) -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicon (replace with the path to your favicon) -->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+
+    <!-- Include any additional scripts or stylesheets needed for your site -->
+
+    {% block head_extra %}{% endblock %}
 </head>
 <body>
 
@@ -16,18 +33,13 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'secure_page' %}">Secure Page</a>
         </li>
-        <li class="nav-item">
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="nav-link btn btn-link">Logout</button>
-          </form>
-        </li>
+         
       {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'login' %}">Login</a>
+          <a class="nav-link" href="{% url 'register' %}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'signup' %}">Sign up</a>
+          <a class="nav-link" href="{% url 'register' %}">Sign up</a>
         </li>
       {% endif %}
     </ul>

@@ -58,18 +58,22 @@ def dashboard(request):
     return render(request, "dashboard.html")
 
 def register_view(request):
+
     form = RegisterForm
+
     if request.method == "POST":
         try:
             if "mobile" in request.POST:
                 mobile = request.POST.get('mobile')
                 user = MyUser.objects.get(mobile=mobile)
                 #send otp
-                otp = kavesms.get_rndom_otp
+                otp = kavesms.get_random_otp()
                 kavesms.send_otp(mobile, otp)
                 #save otp
                 user.otp = otp
                 user.save()
+                #showing user phone number 
+                request.session['user_mobile'] = user.mobile
                 #redirect to page
                 return HttpResponseRedirect(reverse('verify'))
         except MyUser.DoesNotExist:
@@ -77,15 +81,18 @@ def register_view(request):
             if form.is_valid():
                 user = form.save(commit = False)
                 #send otp
-                otp = kavesms.get_rndom_otp
+                otp = kavesms.get_random_otp
                 kavesms.send_otp(mobile, otp)
                 #save otp
                 user.otp = otp
                 user.is_active = False
                 user.save()
+                #showing user phone number 
+                request.session['user_mobile'] = user.mobile
                 #redirecting to verify page
                 return HttpResponseRedirect(reverse('verify'))
-    return render(request, 'register.html', {'form': form})
+    return render(request, "custom_loggin/register.html", {'form': form})
 
 def verify(request):
-    return render(request, 'verify.html')
+    mobile = request.session.get('user_mobile')
+    return render(request, 'custom_loggin/verify.html', {'mobile':mobile})
