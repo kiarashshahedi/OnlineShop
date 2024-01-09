@@ -33,10 +33,11 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'secure_page' %}">Secure Page</a>
         </li>
+        
          
       {% else %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'register' %}">Login</a>
+          <a class="nav-link" href="{% url 'custom_loggin/register' %}">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'register' %}">Sign up</a>
