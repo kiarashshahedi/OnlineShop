@@ -45,17 +45,17 @@ from . import kavesms
 #     messages.success(request, 'Logout successful.')
 #     return redirect('products/product_list')
 #----------------------------------------------------------------------------------------------
-# def login(request):
-#     if request.method == "POST":
-#         if "mobile" in request.POST:
-#             mobile = request.POST.get(mobile)
-#             user = MyUser.objects.get(mobile = mobile)
-#             login(request, user)
-#             return HttpResponseRedirect(reverse('dashboard'))
-#     return render(request, 'login.html')
+def login(request):
+    if request.method == "POST":
+        if "mobile" in request.POST:
+            mobile = request.POST.get(mobile)
+            user = MyUser.objects.get(mobile = mobile)
+            login(request, user)
+            return HttpResponseRedirect(reverse('dashboard'))
+    return render(request, 'custom_loggin/register.html')
 #------------------------------------------------------------------------
 def dashboard(request):
-    return render(request, "dashboard.html")
+    return render(request, "custom_loggin/dashboard.html")
 
 def register_view(request):
 
@@ -68,21 +68,23 @@ def register_view(request):
                 user = MyUser.objects.get(mobile=mobile)
                 #send otp
                 otp = kavesms.get_random_otp()
-                kavesms.send_otp(mobile, otp)
+                # kavesms.send_otp(mobile, otp)
+                kavesms.send_otp_soap(mobile, otp)
                 #save otp
                 user.otp = otp
                 user.save()
                 #showing user phone number 
                 request.session['user_mobile'] = user.mobile
                 #redirect to page
-                return HttpResponseRedirect(reverse('verify'))
+                return HttpResponseRedirect(reverse('verify_view'))
         except MyUser.DoesNotExist:
             form = RegisterForm(request.POST)
             if form.is_valid():
                 user = form.save(commit = False)
                 #send otp
-                otp = kavesms.get_random_otp
-                kavesms.send_otp(mobile, otp)
+                otp = kavesms.get_random_otp()
+                # kavesms.send_otp(mobile, otp)
+                kavesms.send_otp_soap(mobile, otp)
                 #save otp
                 user.otp = otp
                 user.is_active = False
@@ -90,9 +92,26 @@ def register_view(request):
                 #showing user phone number 
                 request.session['user_mobile'] = user.mobile
                 #redirecting to verify page
-                return HttpResponseRedirect(reverse('verify'))
+                return HttpResponseRedirect(reverse('verify_view'))
     return render(request, "custom_loggin/register.html", {'form': form})
 
 def verify(request):
-    mobile = request.session.get('user_mobile')
-    return render(request, 'custom_loggin/verify.html', {'mobile':mobile})
+    try:
+        mobile = request.session.get('user_mobile')
+        user = MyUser.objects.get(mobile = mobile)
+
+        if request.method == "POST":
+            if user.otp != int(request.POST.get('otp')):
+                return HttpResponseRedirect(reverse('register_view'))
+            
+            user.is_active = True
+            user.save()
+            login(request, user)
+            return HttpResponseRedirect(reverse('dashboard'))
+
+        return render(request, 'custom_loggin/verify.html', {'mobile': mobile})
+    except:
+        return HttpResponseRedirect(reverse('register_view'))
+
+
+    
