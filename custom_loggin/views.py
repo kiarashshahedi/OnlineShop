@@ -1,11 +1,11 @@
 
-from .forms import RegisterForm
-from django.contrib.auth import login
+from .forms import *
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
 from .models import MyUser
 from . import kavesms
+from django.shortcuts import render, redirect
 
 
 #--------------------------------------------------------------------------------------------
@@ -69,49 +69,63 @@ def register_view(request):
                 #send otp
                 otp = kavesms.get_random_otp()
                 # kavesms.send_otp(mobile, otp)
-                kavesms.send_otp_soap(mobile, otp)
+                #kavesms.send_otp_soap(mobile, otp)
                 #save otp
+                print(otp)
                 user.otp = otp
                 user.save()
                 #showing user phone number 
                 request.session['user_mobile'] = user.mobile
                 #redirect to page
-                return HttpResponseRedirect(reverse('verify_view'))
+                return HttpResponseRedirect(reverse('verify'))
         except MyUser.DoesNotExist:
-            form = RegisterForm(request.POST)
+            form = forms.RegisterForm(request.POST)
             if form.is_valid():
-                user = form.save(commit = False)
+                user = form.save(commit=False)
                 #send otp
                 otp = kavesms.get_random_otp()
                 # kavesms.send_otp(mobile, otp)
-                kavesms.send_otp_soap(mobile, otp)
+                #kavesms.send_otp_soap(mobile, otp)
                 #save otp
+                print(otp)
+
                 user.otp = otp
                 user.is_active = False
                 user.save()
                 #showing user phone number 
                 request.session['user_mobile'] = user.mobile
                 #redirecting to verify page
-                return HttpResponseRedirect(reverse('verify_view'))
+                return redirect(reverse('verify'))
     return render(request, "custom_loggin/register.html", {'form': form})
+
+
+#check OTP for redirecting to dashboard or retry for loggin if inccorect
 
 def verify(request):
     try:
         mobile = request.session.get('user_mobile')
-        user = MyUser.objects.get(mobile = mobile)
+        user = MyUser.objects.get(mobile=mobile)
 
-        if request.method == "POST":
-            if user.otp != int(request.POST.get('otp')):
-                return HttpResponseRedirect(reverse('register_view'))
+        if request.method == 'POST':
+
+            entered_otp = int(request.POST.get('otp'))
+            if user.otp != entered_otp:
+
+                print(f"Incorrect OTP entered: {entered_otp}")
+                return redirect(reverse("register_view"))
             
             user.is_active = True
             user.save()
             login(request, user)
-            return HttpResponseRedirect(reverse('dashboard'))
+            return redirect(reverse("dashboard"))
 
         return render(request, 'custom_loggin/verify.html', {'mobile': mobile})
-    except:
-        return HttpResponseRedirect(reverse('register_view'))
-
-
     
+    except:
+        print(f"User with mobile {mobile} does not exist.")
+        return redirect(reverse("register_view"))
+    
+    # except Exception as e:
+    #     # Handle other exceptions if necessary
+    #     print(f"An error occurred during OTP verification: {e}")
+    #     return redirect(reverse("register_view"))

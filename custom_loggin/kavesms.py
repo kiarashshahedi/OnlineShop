@@ -39,7 +39,14 @@ def send_otp_soap(mobile, otp):
     sender = '1000689696'
     status = 0
     statusMessage = ''
-    result = Clients.service.SendSimpleByApikey(Kavenegar_API, sender, message, receptor, 0, 1, status, statusMessage)
+    result = Clients.service.SendSimpleByApikey(Kavenegar_API, 
+                                                sender, 
+                                                message, 
+                                                receptors, 
+                                                0, 
+                                                1, 
+                                                status, 
+                                                statusMessage)
     print(result)
     print(otp)
 

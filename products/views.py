@@ -4,9 +4,9 @@ from .models import Product, Category
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 
-@login_required
-def secure_view(request):
-    return render(request, 'products/secure_page.html', {'user': request.user})
+# @login_required
+# def secure_view(request):
+#     return render(request, 'products/secure_page.html', {'user': request.user})
 
 @cache_page(60 * 15)  # Cache for 15 minutes
 def product_list(request, category_slug=None):

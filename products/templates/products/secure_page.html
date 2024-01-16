@@ -2,7 +2,7 @@
 
 {% block content %}
   <div class="container mt-4">
-    <h2>Welcome to the Secure Page, {{ user.username }}!</h2>
+    <h2>Welcome to the Secure Page, {{ user.mobile }}!</h2>
     
     <div class="row">
       <div class="col-md-6">
@@ -10,7 +10,7 @@
         
         <h3>User Information:</h3>
         <ul>
-          <li><strong>Username:</strong> {{ user.username }}</li>
+          <li><strong>mobile</strong> {{ user.mobile }}</li>
           <li><strong>Email:</strong> {{ user.email }}</li>
           <!-- Add more user information as needed -->
         </ul>

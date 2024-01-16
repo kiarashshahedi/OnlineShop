@@ -6,7 +6,7 @@ from custom_loggin.myusermanager import MyUserManager
 class MyUser(AbstractUser):
     username = None
     mobile = models.CharField(max_length=11, unique=True)
-    otp = models.PositiveBigIntegerField(blank=True, null = True)
+    otp = models.IntegerField(blank=True, null=True)
     otp_creat_time = models.DateTimeField(auto_now=True)
 
     #profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
