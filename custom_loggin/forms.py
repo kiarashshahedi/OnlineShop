@@ -1,11 +1,10 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import MyUser
+from . import models
 
 
 class RegisterForm(forms.ModelForm):
-    otp = forms.IntegerField()
     class Meta:
-        model = MyUser
-        fields = ['mobile', 'otp'] 
+        model = models.MyUser
+        fields = ['mobile', ]
 #---------------------------------------------------------

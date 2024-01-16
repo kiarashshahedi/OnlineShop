@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'custom_loggin',
     'AllPayments',
     'cart',
     'checkout',
@@ -35,7 +36,7 @@ INSTALLED_APPS = [
     'djangosecure',
     'csp',
     'payments',
-    'custom_loggin',
+    'background_task',
 
     
    
