@@ -1,5 +1,5 @@
 
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
@@ -8,7 +8,7 @@ from . import forms
 from . import kavesms
 from .kavesms import get_random_otp
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 
 def dashboard(request):
@@ -80,3 +80,10 @@ def verify(request):
     except MyUser.DoesNotExist:
         messages.error(request, "Error accorded, try again.")
         return HttpResponseRedirect(reverse('register_view'))
+    
+
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('product_list'))

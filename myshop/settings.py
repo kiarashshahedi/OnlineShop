@@ -1,7 +1,14 @@
 
 from pathlib import Path
 import os
+from django.contrib.messages import constants as messages
 
+
+
+MESSAGE_TAGS = {
+    messages.ERROR : 'danger',
+    messages.INFO : 'success'
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,10 +43,7 @@ INSTALLED_APPS = [
     'djangosecure',
     'csp',
     'payments',
-    'background_task',
-
-    
-   
+    'background_task',   
 ]
 
 MIDDLEWARE = [
@@ -184,7 +188,7 @@ AUTH_USER_MODEL = 'custom_loggin.MyUser'
 #--------------- authentication backend -----------------
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'custom_loggin.backend.ModelBackend',                     
+    'custom_loggin.mybackend.ModelBackend',                     
                            
                            
 ]

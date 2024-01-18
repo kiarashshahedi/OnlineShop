@@ -5,12 +5,13 @@
     <title>Dashboard</title>
 </head>
 <body>
-<h1>
     {% if user.is_authenticated %}
-        <h1> Welcome {{ user }} </h1>
+        <h1>welcome</h1>
+        <p>Welcome {{ user }}</p>       
+        <p><a href="{% url 'logout_view' %}">Logout</a></p>
+        <p><a href="{% url 'product_list' %}">all products</a></p>
     {% else %}
-        <h1>User not found</h1>
+        <p>Please log in to access the dashboard.</p>
     {% endif %}
-</h1>
 </body>
 </html>

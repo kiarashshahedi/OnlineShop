@@ -1,9 +1,15 @@
-{% extends 'products\base_generic.html' %}
-
+{% extends 'custom_loggin/base.html' %}
 {% block productslist %}
+
 {% if user.is_authenticated %}
   
-<h1>{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h1>
+<h1>
+  {% if category %}
+        {{ category.name }}
+  {% else %}
+        All Products
+  {% endif %}
+</h1>
 
   <div class="row">
     {% for product in products %}

@@ -62,7 +62,6 @@ def send_otp_soap(mobile, otp):
 
 def get_random_otp():
     otp = randint(1000, 9999)
-    print("OTP---: ")
     return otp
     
 def check_otp_expiration(mobile):
