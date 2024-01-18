@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, Category
-from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
+from .forms import ProductForm
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+from custom_loggin import models
 
 # @login_required
 # def secure_view(request):
@@ -35,3 +39,24 @@ def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug)
     return render(request, 'products/product_detail.html', {'product': product})
 #-----------------------------------------------------------------------------
+
+@login_required(login_url='login')  # Require authentication to access this view
+def add_product(request):
+    # Check if the logged-in user is the superuser
+    if not request.user.is_superuser:
+        return HttpResponseForbidden("You don't have permission to add products.")
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.user = request.user
+            product.save()
+            messages.success(request, 'Product added successfully!')
+            return redirect('product_list')  # Redirect to the product list page
+        else:
+            messages.error(request, 'Error adding the product. Please check the form.')
+    else:
+        form = ProductForm()
+
+    return render(request, 'products/add_product.html', {'form': form})

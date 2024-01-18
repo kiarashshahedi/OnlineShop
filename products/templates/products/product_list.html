@@ -1,4 +1,4 @@
-{% extends 'custom_loggin/base.html' %}
+{% extends 'products/base.html' %}
 {% block productslist %}
 
 {% if user.is_authenticated %}
@@ -51,8 +51,11 @@
 
 {% endblock %}
 
-
-
-
+{% block content %}
+    <h2>Product List</h2>
+    {% for product in products %}
+        <a href="{% url 'product_detail' pk=product.pk %}">{{ product.name }}</a><br>
+    {% endfor %}
+{% endblock %}
 
 

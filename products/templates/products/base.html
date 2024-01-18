@@ -26,12 +26,13 @@
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="{% url 'product_list' %}">Your Site</a>
+  <a href="{% url 'add_product' %}">Add Product</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <!-- ... other navigation links ... -->
       {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'secure_page' %}">Secure Page</a>
+          <a class="nav-link" href="{% url 'dashboard' %}">Secure Page</a>
         </li>
 
       {% else %}
