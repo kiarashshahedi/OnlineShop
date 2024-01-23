@@ -1,7 +1,6 @@
 {% extends 'products/base.html' %}
-{% block productslist %}
+{% block products %}
 
-{% if user.is_authenticated %}
   
 <h1>
   {% if category %}
@@ -21,7 +20,8 @@
             <p class="card-text">{{ product.description }}</p>
             <div class="d-flex justify-content-between align-items-center">
               <span class="text-muted">${{ product.price }}</span>
-              <a href="{% url 'product_detail' id=product.id slug=product.slug %}" class="btn btn-sm btn-outline-secondary">View Details</a>
+              <!-- Example in a template -->
+              <class= href="{% url 'product_detail' pk=1 %}" class="btn btn-sm btn-outline-secondary">Product Detail</a>
             </div>
           </div>
         </div>
@@ -47,7 +47,6 @@
     </span>
   </div>
   
-{% endif %}
 
 {% endblock %}
 

@@ -11,8 +11,16 @@ MESSAGE_TAGS = {
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'custom_loggin/static'),
+    os.path.join(BASE_DIR, 'products/static'),
+    ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Dummy value for development
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -86,10 +94,9 @@ WSGI_APPLICATION = 'myshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / "db.sqlite3",  # Use the default SQLite database
+        'NAME': os.path.join(BASE_DIR, "db.sqlite3"),  # Use the default SQLite database
     }
 }
-
 
 #--------------------------------------- Password validation----------------------------------------
 
@@ -122,9 +129,9 @@ USE_TZ = False
 
 # -------------------------Static files (CSS, JavaScript, Images)------------------------------------
 
-STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
+# STATIC_URL = '/static/'
+# #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 #----------------------------- Default primary key field type-------------------------------
@@ -189,12 +196,12 @@ AUTH_USER_MODEL = 'custom_loggin.MyUser'
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'custom_loggin.mybackend.ModelBackend',                     
-                           
-                           
 ]
 #-------------------------------------------------------
+MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
+MEDIA_URL = '/images/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
 #-----------------------------------------------------
 
 Kavenegar_API = '6550364A49313154626F717A544356532B71686A6550485A487A52573731344F7863797732416D513372633D'

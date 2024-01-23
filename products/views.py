@@ -7,16 +7,14 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from custom_loggin import models
+from .models import Product
 
-# @login_required
-# def secure_view(request):
-#     return render(request, 'products/secure_page.html', {'user': request.user})
 
-@cache_page(60 * 15)  # Cache for 15 minutes
 def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
     products = Product.objects.select_related('category').all()
+
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
