@@ -6,7 +6,6 @@ from .forms import ProductForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from custom_loggin import models
 from .models import Product
 
 
@@ -58,3 +57,5 @@ def add_product(request):
         form = ProductForm()
 
     return render(request, 'products/add_product.html', {'form': form})
+
+

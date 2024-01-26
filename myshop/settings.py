@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'djangosecure',
     'csp',
     'payments',
-    'background_task',   
+    'background_task',
+    'haystack',   
 ]
 
 MIDDLEWARE = [
@@ -207,3 +208,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 Kavenegar_API = '6550364A49313154626F717A544356532B71686A6550485A487A52573731344F7863797732416D513372633D'
 
 #-------------------------------------------------------
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'URL': 'http://localhost:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+#----------------------------------------------------------
