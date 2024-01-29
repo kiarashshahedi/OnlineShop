@@ -30,7 +30,7 @@ def product_list(request, category_slug=None):
         # If page is out of range (e.g., 9999), deliver last page.
         products = paginator.page(paginator.num_pages)
 
-    return render(request, 'products/product_list.html', {'category': category, 'categories': categories, 'products': products})
+    return render(request, 'products/home-product-list.html', {'category': category, 'categories': categories, 'products': products})
 
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)

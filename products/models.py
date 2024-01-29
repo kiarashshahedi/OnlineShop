@@ -19,6 +19,10 @@ class Product(models.Model):
     inventory = models.PositiveIntegerField(default=0)
     average_rating = models.FloatField(default=0.0)
     total_ratings = models.IntegerField(default=0)
+    # adding sale 
+    in_sale = models.BooleanField(default=False)
+    sale_price = models.DecimalField(default=0, max_digits=9, decimal_places=3)
+
 
     def __str__(self):
         return self.name
@@ -44,3 +48,4 @@ class Order(models.Model):
 
     def __str__(self):
         return self.product
+    
