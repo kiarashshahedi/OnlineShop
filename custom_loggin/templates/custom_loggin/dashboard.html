@@ -1,17 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
-<body>
-    {% if user.is_authenticated %}
-        <h1>welcome</h1>
-        <p>Welcome {{ user }}</p>       
-        <p><a href="{% url 'logout_view' %}">Logout</a></p>
-        <p><a href="{% url 'product_list' %}">all products</a></p>
-    {% else %}
-        <p>Please log in to access the dashboard.</p>
-    {% endif %}
-</body>
-</html>
+{% extends 'custom_loggin/base.html' %}
+{% block body %}
+
+<!-- Header-->
+<header class="bg-dark py-1">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="text-center text-white-50">
+          <h1 class="display-6 fw-bolder"> تک خرید </h1>
+          <p class="lead fw-normal text-white-50 mb-0"> خرید تک|خاص|امن ... داشبرد</p>
+      </div>
+  </div>
+</header>
+
+{% if user.is_authenticated %}
+     
+  <h2>Welcome to the Secure Dashboard Page </h2><br/><br/><br/><br/>
+  <div class="row">
+    <div class="col-md-6">   
+      <!-- user info -->       
+      <h3>-User Information :</h3>
+      <ul>
+        <li><strong>mobile:</strong> {{ user.mobile }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+      </ul>
+      <br/><br/><br/><br/><br/><br/><br/>
+    </div> 
+   
+{% else %}
+  <p>Please log in to access the dashboard.</p>
+{% endif %}
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+{% endblock %}

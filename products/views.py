@@ -58,4 +58,6 @@ def add_product(request):
 
     return render(request, 'products/add_product.html', {'form': form})
 
+def about(request):
+    return render(request, 'products/about.html')
 

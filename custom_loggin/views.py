@@ -1,8 +1,8 @@
 
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import MyUser
 from . import forms
 from . import kavesms
@@ -14,6 +14,8 @@ from django.shortcuts import render
 def dashboard(request):
     return render(request, "custom_loggin/dashboard.html")
 
+
+#register user by sendding otp code from kavenegar
 def register_view(request):
     form = forms.RegisterForm
 
@@ -53,7 +55,6 @@ def register_view(request):
     return render(request, 'custom_loggin/register.html', {'form': form})
 
 #check OTP for redirecting to dashboard or retry for loggin if inccorect
-
 def verify(request):
     try:
         mobile = request.session.get('user_mobile')
@@ -83,7 +84,27 @@ def verify(request):
     
 
 
-
+#logout user
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('product_list'))
+    messages.success(request, (" شما خارج شدید"))
+    return redirect('product_list')
+
+
+#login user 
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username'] 
+        password =  request.POST['password'] 
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, ("you have been logged in"))
+            return redirect('login')
+        else:
+            messages.success(request, ("there is an error please try again"))
+            return render('login')
+    else:
+        return render(request, 'login.html', {})
+        
+    

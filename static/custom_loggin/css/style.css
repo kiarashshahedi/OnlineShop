@@ -233,10 +233,10 @@ input[type=text]:placeholder {
 .underlineHover:after {
   display: block;
   left: 0;
-  bottom: -10px;
+  bottom: -1px;
   width: 0;
   height: 2px;
-  background-color: #56baed;
+  background-color: #01015c;
   content: "";
   transition: width 0.2s;
 }
