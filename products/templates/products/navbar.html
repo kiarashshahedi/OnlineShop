@@ -17,10 +17,13 @@
                         {% if user.is_authenticated %}
                         <li><a class="nav-link" href="{% url 'dashboard' %}">داشبورد</a></li>
                         <li><a class="nav-link" href="{% url 'logout_view' %}">خروج از حساب کاربری</a></li>
+                        
 
                         {% else %}
-                        <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register_view' %}">ورود / ثبت نام</a>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'register_view' %}">login with OTP</a>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'login' %}">loggin with Mobile+Pass</a>
+                        <li class="nav-item"> <a class="nav-link" href="{% url 'passRegister' %}">Register with Mobile+Pass</a>
+
                         {% endif %}
                     </ul>
                 </li>

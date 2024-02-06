@@ -4,20 +4,23 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from .models import MyUser
-from . import forms
+from .forms import RegisterForm, SignUpForm
 from . import kavesms
 from .kavesms import get_random_otp
 from django.contrib import messages
 from django.shortcuts import render
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
-
+#user dashboard page 
 def dashboard(request):
     return render(request, "custom_loggin/dashboard.html")
 
 
 #register user by sendding otp code from kavenegar
 def register_view(request):
-    form = forms.RegisterForm
+    form = RegisterForm
 
     if request.method == "POST":
         try:
@@ -37,7 +40,7 @@ def register_view(request):
                 return HttpResponseRedirect(reverse('verify'))
 
         except MyUser.DoesNotExist:
-            form = forms.RegisterForm(request.POST)
+            form = RegisterForm(request.POST)
             if form.is_valid():
                 user = form.save(commit=False)
                 # send otp
@@ -84,27 +87,46 @@ def verify(request):
     
 
 
-#logout user
+#logout user(for all steps works)
 def logout_view(request):
     logout(request)
     messages.success(request, (" شما خارج شدید"))
     return redirect('product_list')
 
 
-#login user 
+#login user with mobile and password(superusers)
 def login_user(request):
     if request.method == "POST":
-        username = request.POST['username'] 
+        mobile = request.POST['mobile'] 
         password =  request.POST['password'] 
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, mobile=mobile, password=password)
         if user is not None:
             login(request, user)
             messages.success(request, ("you have been logged in"))
-            return redirect('login')
+            return redirect('product_list')
         else:
             messages.success(request, ("there is an error please try again"))
-            return render('login')
+            return redirect('login')
     else:
-        return render(request, 'login.html', {})
+        return render(request, 'custom_loggin/login.html', {})
         
+#register user with mobile and password  
+def UsernameRegister(request):
+    form = SignUpForm
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            mobile = form.cleaned_data['mobile']
+            password = form.cleaned_data['password1']
+            #login user
+            user = authenticate(mobile=mobile, password=password)
+            login(request, user)
+            messages.success(request, ("YOU have REGISTERed"))
+            return redirect('product_list')
+        else:
+            messages.success(request, ("There was a problem in Register process"))
+            return redirect('passRegister')
+    else:
+        return render(request, 'custom_loggin/passRegister.html', {'form':form})
     

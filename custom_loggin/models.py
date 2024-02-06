@@ -3,9 +3,14 @@ from django.contrib.auth.models import AbstractUser
 from .myusermanager import MyUserManager
 import datetime
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+
 
 class MyUser(AbstractUser):
-    username = None
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    username = models.CharField(max_length=30)
+    password = models.CharField(max_length=128)    
     date_of_birth = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='images/', null=True, blank=True)
     bio = models.TextField(max_length=500, blank=True)
@@ -16,6 +21,7 @@ class MyUser(AbstractUser):
     mobile = models.CharField(max_length=11, unique=True)
     otp = models.IntegerField(blank=True, null=True)
     otp_create_time = models.DateTimeField(auto_now=True)
+    email = models.EmailField(max_length=100)
 
     objects = MyUserManager()
 

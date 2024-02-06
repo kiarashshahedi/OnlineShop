@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'payments',
     'background_task',
     'haystack',   
+    'django_pdb'
 ]
 
 MIDDLEWARE = [

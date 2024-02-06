@@ -20,6 +20,15 @@ class MyUserManager(BaseUserManager):
         if other_fields.get('is_superuser') is not True:
             raise ValueError('Superuser muse have is_superuser=True')
         return self.create_user(mobile, password, **other_fields)
+    
+    def create_user_with_pass(self, mobile, password, username, **other_fields):
+        if not mobile:
+            raise ValueError("mobile is required...!")
+        user = self.model(mobile=mobile, username=username **other_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
 
     
 
