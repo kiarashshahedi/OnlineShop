@@ -5,3 +5,7 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+// Initialization for ES Users
+import { Ripple, initMDB } from "mdb-ui-kit";
+
+initMDB({ Ripple });

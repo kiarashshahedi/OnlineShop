@@ -14,7 +14,7 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="{% static 'products/css/styles.css' %}" rel="stylesheet" />
         {% block head_extra %}{% endblock %}
-    </head>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
     <body>
         {% include 'products/navbar.html' %}
@@ -30,10 +30,8 @@
 
         {% block body %}
         {% endblock %}
-<!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container"><p class="m-0 text-center text-white">Copyright &copy; TK kharid 2024</p></div>
-    </footer>
+        {% include 'products/footer.html' %}
+
 <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->

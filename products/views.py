@@ -61,3 +61,13 @@ def add_product(request):
 def about(request):
     return render(request, 'products/about.html')
 
+def category(request, foo):
+    #replacing Hyphens with space
+    foo = foo.replace('-', ' ')
+    try:
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request, 'products/category.html', {'products':products, 'category':category})
+    except:
+        messages.success(request, 'This Category Doesnt Exist !')
+        return redirect('product_list')
