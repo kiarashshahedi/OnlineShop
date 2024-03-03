@@ -64,7 +64,7 @@ class Cart():
 	#find product for showing in cart page
 	def get_prods(self):
 		
-		product_ids = self.cart.keys()                           # Get ids from cart		
+		product_ids = self.cart.keys()                           # Get ids from cart (pk of products)		
 		products = Product.objects.filter(id__in=product_ids)    # Use ids to lookup products in database model		
 		return products                                           # Return those looked up products
 
