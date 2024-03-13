@@ -1,27 +1,32 @@
 from django.urls import path
-from .views import product_list, add_product, product_detail, about, category
-from custom_loggin import views
+from . import views
+from custom_loggin import views as loggin_views
+
 
 
 
 
 urlpatterns = [
     #adding product url
-    path('add/', add_product, name='add_product'),
+    path('add/', views.add_product, name='add_product'),
 
     #home page that shows all products
-    path('', product_list, name='product_list'),
+    path('', views.product_list, name='product_list'),
 
     #product details (after clicking on product list iteams views each iteam info)
-    path('product_detail/<int:pk>/', product_detail, name='product_detail'),
+    path('product_detail/<int:pk>/', views.product_detail, name='product_detail'),
 
     #user dashboard page (include user info - shopping info - & ...)
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/', loggin_views.dashboard, name='dashboard'),
     
     #website about page that shows seller info and ways for comunication
-    path('about/', about, name='about'),
+    #path('about/', views.about, name='about'),
     
     #category page
-    path('category/<str:foo>', category, name='category'),
+    path('category/<str:foo>', views.category, name='category'),
+
+    #category summary
+    path('category_summary/', views.category_summary, name="category_summary"),
+
 
 ]
