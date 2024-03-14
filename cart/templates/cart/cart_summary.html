@@ -120,41 +120,36 @@ There's Nothing In Your Cart...
 
 <script>
 // Update Cart
+
 $(document).on('click', '.update-cart', function(e){
-e.preventDefault();
-// grab the product id
-var productid = $(this).data('index');
+  e.preventDefault();
+  var productid = $(this).data('index');
 
-$.ajax({
-type: 'POST',
-url: '{% url "cart_update" %}' ,
-data: {
-product_id: $(this).data('index'),
-product_qty: $('#select' + productid + ' option:selected').text(),
-csrfmiddlewaretoken: '{{ csrf_token }}',
-action: 'post'
-},
-success: function(json){
-//console.log(json)
-//document.getElementById("cart_quantity").textContent = json.qty
-$('#cart_quantity').text(json.qty);
-location.reload();
-},
-
-error: function(xhr, errmsg, err){
-  console.error(error);
-}
-
-
+  $.ajax({
+      type: 'POST',
+      url: '{% url "cart_update" %}' ,
+      data: {
+          product_id: $(this).data('index'),
+          product_qty: $('#select' + productid).val(),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+      },
+      success: function(json){
+          $('#cart_quantity').text(json.qty);
+          location.reload();
+      },
+      error: function(xhr, errmsg, err){
+          console.error(error);
+      }
+  });
 });
 
-})
 
 // Delete Item From Cart
+
 $(document).on('click', '.delete-product', function(e){
 e.preventDefault();
-// grab the product id
-//var productid = $(this).data('index');
+
 
 $.ajax({
 type: 'POST',
@@ -165,8 +160,6 @@ csrfmiddlewaretoken: '{{ csrf_token }}',
 action: 'post'
 },
 success: function(json){
-//console.log(json)
-//document.getElementById("cart_quantity").textContent = json.qty
 location.reload();
 },
 

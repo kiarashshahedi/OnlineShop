@@ -1,68 +1,76 @@
 
+<!--navbar-->
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-primary bg-gradient">
-            <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg bg-primary bg-gradient">
+        <div class="container-fluid">
 
+            <!--LOGO AND IT ANIMATION-->
 
-                <a class="navbar-brand fa fw-bold text-dark ms-5 bg-warning text-dark rounded-2 fw-bold " href="#"></a>
-                <h5 class="me-1 fa animate-charcter fw-bold">تک خرید</h5>
-                <button class=" me-3 navbar-toggler bg-white ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand fa fw-bold text-dark ms-5 bg-warning text-dark rounded-2 fw-bold " href="#"></a>
+            <h5 class="me-1 fa animate-charcter fw-bold">تک خرید</h5>
+            <button class=" me-3 navbar-toggler bg-white ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon ms-auto me-1"></span>
-                </button>
+            </button>
 
-                <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
-                    <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
-                        <li class="nav-item mx-3">
+        <!--navbar list-->
+        <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
+            <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
 
-                            <a class="fa nav-link active  h1 animnavbar bg-warning mx-1 bg-gradient text-dark rounded-2 fw-bold " aria-current="page" href="#">
-                                <i class="bi bi-house mx-1"></i> صفحه اصلی</a>
-                        </li>
-                        <li class="nav-item dropdown mx-3 ">
-                            <a class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-warning text-dark rounded-2 fw-bold " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-arrow-bar-down mx-1"> </i> دسته بندی
-                            </a>
-                            <ul class="dropdown-menu mx-3">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                <!--Safe Asli-->
+                <li class="nav-item mx-3">
+                    <a class="fa nav-link active  h1 animnavbar bg-warning mx-1 bg-gradient text-dark rounded-2 fw-bold " aria-current="page" href="{% url 'product_list' %}">
+                    <i class="bi bi-house mx-1"></i> صفحه اصلی</a>
+                </li>
 
-                        <li class="nav-item mx-3">
-                            <a class="fa nav-link bg-warning bg-gradient h1 text-dark rounded-2 mx-1 fw-bold animnavbar" href="#">
-                                <i class=" bi bi-file-earmark-person mx-1"></i> درباره ما </a>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a class="fa nav-link bg-warning bg-gradient h1  d-md-none  text-dark rounded-2 mx-1 fw-bold animnavbar " href="#">
-                                <i class="bi bi-bag mx-1"></i>حساب کاربری</a>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a href="#" class="fa nav-link active d-md-none bg-gradient text-dark bi bi-bag h1 bg-warning animnavbar rounded-2 fw-bold "> سبد خرید</a>
-
-                        </li>
-
-
-                    </ul>
-
-                </div>
-
-                <a href="#" class="fa mt-1 mx-3 nav-link active   d-sm-none d-md-flex p-2 bg-gradient text-dark  h1 bg-warning animnavbar rounded-2 fw-bold ">
-                    <i class="bi bi-bag mx-1"></i>حساب کاربری</a>
-
-            <!--sabad kharid-->
-                <form class="d-flex">
-                    <a href="{% url 'cart_summary' %}" class="btn btn-outline-dark">
-                        <i class="bi-cart-fill me-1"></i>سبدخرید
-                        <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+                <!--Dastebandi-->
+                <li class="nav-item dropdown mx-3 ">
+                    <a class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-warning text-dark rounded-2 fw-bold " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                     <i class="bi bi-arrow-bar-down mx-1"> </i> دسته بندی
                     </a>
-                </form>            
-            </div>
-        </nav>
-    </header>
+                    <ul class="dropdown-menu mx-3">
+                        <li><a class="dropdown-item" href="#">جدید</a></li>
+                        <li><a class="dropdown-item" href="#">پرطرفدار</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        
+        <!--Hesab Karbari-->
+        
+        <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
+            <li class="nav-item dropdown mx-3 ">
+                <a href="#" class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-warning text-dark rounded-2 fw-bold " role="button" data-bs-toggle="dropdown" aria-expanded="false"">حساب کاربری</a>   
+                <ul class="dropdown-menu mx-3">
+                    {% if user.is_authenticated %}
+                        <li><a class="dropdown-item" href="#">داشبورد</a></li>
+                        <li><a class="dropdown-item" href="#">سبدخرید</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">خروج از حساب کاربری</a></li>
+                                    
+                    {% else %}
+                        <li><a class="dropdown-item" href="#">ورود</a></li>
+                        <li><a class="dropdown-item" href="#">ثبت نام</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+        </ul>
+
+
+        <!--sabad kharid-->
+        <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
+            <form class="nav-item mx-3">
+                <a href="{% url 'cart_summary' %}" class="fa nav-link active  h1 animnavbar bg-warning mx-1 bg-gradient text-dark rounded-2 fw-bold " aria-current="page"">
+                    <i class="bi-cart-fill me-1"></i>سبدخرید
+                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+                </a>
+            </form>
+        </ul>
+
+    </div>
+</nav>
 
 
 
