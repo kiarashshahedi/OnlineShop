@@ -77,4 +77,5 @@ def category(request, foo):
 
 #summary of categories
 def category_summary(request):
-    return render(request, 'category_summary.html', {})
+    categories = Category.objects.all()
+    return render(request, 'category_summary.html', {"categories":categories})
