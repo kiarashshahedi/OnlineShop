@@ -1,84 +1,68 @@
-
-<!--navbar-->
 <body>
     <nav class="navbar navbar-expand-lg bg-success bg-gradient">
         <div class="container-fluid">
+            <!--right-->
+                <!-- Dastebandi (Categories) -->
+                <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
+                    <li class="nav-item dropdown mx-auto ">
+                        <a class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-warning text-dark rounded-3 fw-bold " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-list mx-1" > </i></a>
+                        <ul class="dropdown-menu mx-auto">
+                            <li><a class="dropdown-item" href="{% url "category_summary" %}">همه ی دسته بندی ها</a></li>
+                            <li><a class="dropdown-item" href="#">تخفیف خورده</a></li>
+                            <li><a class="dropdown-item" href="#">پرفروش</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <!-- Navbar Brand (Logo and Animation) -->
+                    <a class="navbar-brand fa fw-bold text-dark ms-1 bg-success text-dark rounded-3 fw-bold " href="{% url "product_list" %}"></a>
+                    <h5 class="me-1 fa animate-charcter fw-bold"><a href="{% url "product_list" %}"> تک خرید</a></h5>
+                    <!-- Navbar Toggler (for Small Screens) -->
+                    <button class="me-3 navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon ms-1 me-1"></span>
+                    </button>
+                    <!-- Navbar Collapse Content -->
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
 
-
-            <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
-
-                <!--Safe Asli-->
-                <li class="nav-item mx-1">
-                    <a class="fa nav-link active  h1 animnavbar bg-info mx-1 bg-gradient text-dark rounded-3 fw-bold " aria-current="page" href="{% url 'product_list' %}">
-                    <i class="bi bi-house mx-1"></i> صفحه اصلی</a>
-                </li>
-
-                <!--Dastebandi-->
-                <li class="nav-item dropdown mx-1 ">
-                    <a class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-info text-dark rounded-3 fw-bold " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                     <i class="bi bi-arrow-bar-down mx-1"> </i> دسته بندی
-                    </a>
-                    <ul class="dropdown-menu mx-1">
-                        <li><a class="dropdown-item" href="#">جدید</a></li>
-                        <li><a class="dropdown-item" href="#">پرطرفدار</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-            
-
-        <!--navbar middle-->
-        <div class="collapse navbar-collapse justify-content-center " id="navbarSupportedContent">
-            <!--LOGO AND IT ANIMATION-->
-            <a class="navbar-brand fa fw-bold text-dark ms-5 bg-success text-dark rounded-3 fw-bold " href="#"></a>
-            <h5 class="me-1 fa animate-charcter fw-bold">تک خرید</h5>
-            <button class=" me-3 navbar-toggler bg-info ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon ms-auto me-1"></span>
-            </button>   
-        </div>
-        
-        <!--Hesab Karbari-->
-        
-        <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
-            <li class="nav-item dropdown mx-1 ">
-                <a href="#" class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-info text-dark rounded-3 fw-bold " role="button" data-bs-toggle="dropdown" aria-expanded="false""> حساب کاربری </a>   
-                <ul class="dropdown-menu mx-3">
-                    {% if user.is_authenticated %}
-                        <li><a class="dropdown-item" href="#">داشبورد</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">خروج از حساب کاربری</a></li>
-                                    
-                    {% else %}
-                        <li><a class="dropdown-item" href="#">ورود</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">ثبت نام</a></li>
-                    {% endif %}
                 </ul>
-            </li>
-        </ul>
+                
+                <!--left-->
+                <ul class="navbar-nav text-center mb-lg-0 text-white fill">
 
-
-        <!--sabad kharid-->
-        <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
-            <form class="nav-item mx-1">
-                <a href="{% url 'cart_summary' %}" class="fa nav-link active  h1 animnavbar bg-primary mx-1 bg-gradient text-dark rounded-3 fw-bold " aria-current="page"">
-                    <i class="bi-cart-fill me-1"></i>سبدخرید
-                    <span class="badge bg-light text-black ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
-                </a>
-            </form>
-        </ul>
-
-    </div>
-</nav>
-
-
-
-
-
-
-
-
-
-
+                    <!-- Hesab Karbari (User Account) -->               
+                    <li class="nav-item dropdown mx-1">
+                        <a href="#" class="nav-link dropdown-toggle text-warning" role="button" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            {% if user.is_authenticated %}
+                                <li><a class="dropdown-item" href="{% url "dashboard" %}">داشبورد</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url "logout_view" %}">خروج از حساب کاربری</a></li>                
+                            {% else %}
+                                <li><a class="dropdown-item" href="{% url "login" %}">ورود</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{% url "register_view" %}">ثبت نام</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                    <!--Safe Asli-->
+                    <li class="nav-item mx-1">
+                        <a class="nav-link active d-flex flex-column align-items-center justify-content-center bg-info px-3 rounded-circle" href="{% url 'product_list' %}">
+                            <i class="bi bi-house"></i>
+                            <span class="fw-bold"> </span>
+                        </a>
+                    </li>
+                    <!-- Sabad Kharid (Shopping Cart) -->
+                    <li class="nav-item mx-1">
+                        <a href="{% url 'cart_summary' %}" class="nav-link active d-flex align-items-center bg-warning px-3 rounded-pill">
+                            <i class="bi bi-cart-fill me-2"></i>
+                            <span class="fw-bold">سبد خرید</span>
+                            <span class="badge bg-light text-dark ms-2 rounded-pill" style="font-size: 0.9rem;" id="cart_quantity">{{ cart|length }}</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+</body>
