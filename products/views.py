@@ -78,4 +78,4 @@ def category(request, foo):
 #summary of categories
 def category_summary(request):
     categories = Category.objects.all()
-    return render(request, 'category_summary.html', {"categories":categories})
+    return render(request, 'products/category_summary.html', {"categories":categories})
