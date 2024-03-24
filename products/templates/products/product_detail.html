@@ -55,7 +55,11 @@
             <br/><br/>
         <a href="{% url 'product_list'%}" class="btn btn-secondary">Home</a>
         <button type="button" value="{{ product.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
-
+        {% if request.session.product_added_to_cart %}
+        <div class="alert">
+            <p>Product added to cart successfully.</p>
+        </div>
+        {% endif %}
     </center>
       </div>
     </div>

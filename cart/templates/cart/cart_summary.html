@@ -1,119 +1,128 @@
-{% extends 'cart/base.html' %}    
+{% extends 'products/base.html' %}    
 {% block body %}
+</br>
 
-<section class="vh" style="background-color: hsl(240, 100%, 90%)">
+<section class="vh bg-success" >
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col">
-      <p>
-        <h3 class="text-center"><strong>Shopping Cart</strong></h3>
-        <h6 class="text-center">(1 item in your cart)</h6>
-      </p> 
+      <p><h3 class="text-light mx-4 px-4 bi-cart-check"> سبدخرید</h3></p>
+      {% comment %} <h6 class="text-center text-bg-warning text-light">تعداد کالا:{{product_qty}}</h6> {% endcomment %}
       {% if cart_products %}
       {% for product in cart_products %} 
-    <div class="container" > 
-      <div class="card mb-4" style="background-color: hsl(240, 0%, 90%)">
-        <div class="card-body p-4">
-          <div class="row align-items-center">
-            <div class="col-md-2">
-              
-              <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="..." class="img-fluid" alt="Generic placeholder image">
+      <div class="container" >       
+        <div class="card mb-4" style="background-color: hsl(240, 0%, 90%)">
+          <div class="card-body p-4">
+            <div class="row align-items-center">
+
+              <div class="col-md-4">       
+                <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="..." class="img-fluid" alt="Generic placeholder image">
+              </div>
+
+            <div class="col-md-2 d-flex justify-content-center">
+              <div>
+                <p class="small text-muted mb-1 pb-1">اسم محصول: </p>
+                <p class="lead fw-normal mb-0">
+                  <i class="fas fa-circle me-2">{{ product.name }}</i>
+                </p>        
+              </div>
             </div>
 
-      <div class="col-md-2 d-flex justify-content-center">
-        <div>
-          <h5 class="card-title">{{ product.name }}</h5>
-          <br/>
-          <p class="card-text justified">{{ product.description }}</p>
-        </div>
-      </div>
+            <div class="col-md-2 d-flex justify-content-center">
+              <div>
+                <p class="small text-muted mb-4 pb-2">رنگ:</p>
+                <p class="lead fw-normal mb-0">
+                <i class="fas fa-circle me-2" style="color: #fdd8d2;"></i>
+                pink rose</p>
+              </div>
+            </div>
 
-      <div class="col-md-2 d-flex justify-content-center">
-        <div>
-          <p class="small text-muted mb-4 pb-2">Color</p>
-          <p class="lead fw-normal mb-0">
-          <i class="fas fa-circle me-2" style="color: #fdd8d2;"></i>
-          pink rose</p>
-        </div>
-      </div>
+            <div class="col-md-2 d-flex justify-content-center">
+              <div>
+                <p class="small text-muted mb-4 pb-2">تعداد:</p>
+                {% for key, value in quantities.items %}
+                {% if key == product.id|slugify %}
+                <option selected>{{ value }}</option>
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
 
-      <div class="col-md-2 d-flex justify-content-center">
-        <div>
-          <p class="small text-muted mb-4 pb-2">Quantity</p>
-          {% for key, value in quantities.items %}
-            {% if key == product.id|slugify %}
-              <option selected>{{ value }}</option>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
+            <!-- Product price-->
+            <div class="col-md-2 d-flex justify-content-center">
+              <div>             
+                <p class="px-4"> </p>
+                {% if product.in_sale %}           
+                  <p class="small text-muted mb-1 pb-0 ml-2"> قیمت واحد: </p>
+                  <strike> ${{ product.price }} </strike>
+                  &nbsp;   ${{ product.sale_price }}
+                {% else %}
+                    <p class="text-black ml-2">قیمت واحد : </p>        
+                    <p class="ml-4 px-4 py-1">    {{ product.price }} </p>
+                {% endif %}          
+              </div>
+            </div>
 
+      <p class="spaced-lines"></br></p>
 
       <td class="align-middle border-bottom-1">
-        <p class="mb-0" style="font-weight: 500;">tedad</p>
+        <p class="mb-3" style="font-weight: 500;">تعداد: </p>
       </td>
+
       <td class="align-middle border-bottom-0">
         <div class="d-flex flex-row">
-
-          <button class="btn btn-link px-1 " 
-            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-            <i class="fas fa-minus"> - </i>
+          <button class="btn px-3 rounded-pill" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+            <i class="fas"> ــ </i>
           </button>
 
-      <input id="select{{product.id}}" min="0" max="5" name="quantity" value="1" type="number"
-        class="form-control form-control-sm" style="width: 50px;" />
-
-      <button class="btn btn-link px-1"
-        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-        <i class="fas fa-plus"> + </i>
-      </button>
+          <input id="select{{product.id}}" min="0" max="5" name="quantity" value="1" type="number"
+            class="form-control form-control-sm" style="width: 90px; high:50px" />
+            <button class="btn px-3 text-black rounded-pill" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+              <i> + </i>
+            </button>
+          <button type="button" data-index="{{product.id}}" class="update-cart px-4 btn btn-outline-primary">ذخیره تعداد</button>
         </div>
       </td>
+      </br>
 
-<!-- Product price-->
-  {% if product.in_sale %}
-    <div>
-      <p class="small text-muted mb-1 pb-0"> Price </p>
-        <strike> ${{ product.price }} </strike>
-        &nbsp;   ${{ product.sale_price }}
-  {% else %}
-      <p class="small text-muted mb-1 pb-0">Price</p>        
-        ${{ product.price }}
-  {% endif %}
-    </div>
-<br/><br/>
 
-      <div class="d-flex justify-content-end">
-        <a href="{% url 'product_list'%}" class="btn btn-primary">Go for more shoping ...</a>
-        <button type="button" data-index="{{product.id}}" class="delete-product">Delete Product</button>
-        <button type="button" data-index="{{product.id}}" class="update-cart">Update Cart</button>
+      <p class="spaced-lines"></br></p>
+
+      <div class="d-flex justify-content ">
+        <a href="{% url 'product_list'%}" class="btn btn-outline-success px-3 ">بازگشت به فروشگاه</a>
+        <button type="button" data-index="{{product.id}}" class="delete-product btn btn-outline-danger px-3">حذف از سبدخرید</button> 
       </div>
-  
+
     </div>
    </div>
  </div>
-
-{% endfor %}
-
+  {% endfor %}
 </section>
 
-
-<div class="card mb-5">
-  <div class="card-body p-4">
+<div class="card mb-1 bg-success-subtle">
+  <div class="card-body mb-1 p-1">
     <div class="float-top">
-      <p class="mb-0 me-5 d-flex align-items-center" >
-       <span class="small text-muted me-3" >Order total:</span>
-       <span class="lead fw-normal">{{ totals }}</span>
+      <p class="mb-1 me-5 d-flex align-items-center" >
+       <span class="small text-muted me-3">مبلغ کل سفارش:  </span>
+       <span class="lead fw-normal me-1">{{ totals }}</span>
+       <span class="small text-muted me-0">تومان </span>
       </p>
     </div>
   </div>
 </div>
+<br/>
 
-<br/><br/><br/>
 {% else %}
-There's Nothing In Your Cart...
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-{% endif %}
-</div>
+
+  <h5 class="text-bg-warning">در سبد شما کالایی وجود ندارد <h5>
+    <div class="d-flex justify-content ">
+      <p class=" btn btn-warning"><a class="text-dark" href="{% url "product_list" %}"> بازگشت به صفحه اصلی </a></p>
+    </div>
+  <br/><br/>
+  {% endif %}
+
+
+
+
 
 
 
