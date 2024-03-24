@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-
+from .forms import UpdateUserForm,ChangePasswordForm
 #user dashboard page 
 def dashboard(request):
     return render(request, "custom_loggin/dashboard.html")
@@ -129,4 +129,43 @@ def UsernameRegister(request):
             return redirect('passRegister')
     else:
         return render(request, 'custom_loggin/passRegister.html', {'form':form})
-    
+
+#update user info
+def update_user(request):
+	if request.user.is_authenticated:
+		current_user = MyUser.objects.get(id=request.user.id)
+		user_form = UpdateUserForm(request.POST or None, instance=current_user)
+
+		if user_form.is_valid():
+			user_form.save()
+
+			login(request, current_user)
+			messages.success(request, "User Has Been Updated!!")
+			return redirect('dashboard')
+		return render(request, "custom_loggin/update_user.html", {'user_form':user_form})
+	else:
+		messages.success(request, "You Must Be Logged In To Access That Page!!")
+		return redirect('login')
+
+#update user pass
+def update_password(request):
+	if request.user.is_authenticated:
+		current_user = request.user
+		if request.method  == 'POST':
+			form = ChangePasswordForm(current_user, request.POST)
+
+			if form.is_valid():
+				form.save()
+				messages.success(request, "Your Password Has Been Updated...")
+				login(request, current_user)
+				return redirect('update_user')
+			else:
+				for error in list(form.errors.values()):
+					messages.error(request, error)
+					return redirect('update_password')
+		else:
+			form = ChangePasswordForm(current_user)
+			return render(request, "custom_loggin/update_password.html", {'form':form})
+	else:
+		messages.success(request, "You Must Be Logged In To View That Page...")
+		return redirect('login')
