@@ -6,6 +6,7 @@ urlpatterns = [
 
     #Register with Mobile and OTP
     path('register/', views.register_view, name='register_view'),
+    
     #verify OTP code TRUE or FALSE 
     path('verify/', views.verify, name='verify'),
 
@@ -19,7 +20,13 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
 
     #Register with Mobile and Password
-    path ('passRegister/', views.UsernameRegister, name='passRegister')
+    path ('passRegister/', views.UsernameRegister, name='passRegister'),
+
+    #update_user
+    path('update_user/', views.update_user, name='update_user'),
+
+    #update_pass
+    path('update_password/', views.update_password, name='update_password'),
 
 
 ]
