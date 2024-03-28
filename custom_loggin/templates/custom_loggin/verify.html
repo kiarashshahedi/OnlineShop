@@ -1,5 +1,10 @@
 {% extends 'products/base.html' %}
 {% load static %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{% static 'custom_loggin/css/style.css' %}">
+{% endblock %}
+
 {% block body %}
 
     {% if messages %}
