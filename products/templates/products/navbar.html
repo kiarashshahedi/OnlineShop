@@ -9,10 +9,10 @@
                             <i class="bi bi-list mx-1" > </i></a>
                         <ul class="dropdown-menu mx-auto">
                             <li><a class="dropdown-item" href="{% url "category_summary" %}">همه ی دسته بندی ها</a></li>
-                            <li><a class="dropdown-item" href="#">تخفیف خورده</a></li>
-                            <li><a class="dropdown-item" href="#">پرفروش</a></li>
+                            <li><a class="dropdown-item fa" href="#">تخفیف خورده</a></li>
+                            <li><a class="dropdown-item fa" href="#">پرفروش</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            <li><a class="dropdown-item fa" href="#">Something else here</a></li>
                         </ul>
                     </li>
                     <!-- Navbar Brand (Logo and Animation) -->
@@ -32,7 +32,7 @@
 
                     <!-- Hesab Karbari (User Account) -->               
                     <li class="nav-item dropdown mx-1">
-                        <a href="#" class="nav-link dropdown-toggle text-warning" role="button" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</a>
+                        <a href="#" class="nav-link dropdown-toggle text-warning fa" role="button" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</a>
                         <ul class="dropdown-menu dropdown-menu-end">
                             {% if user.is_authenticated %}
                                 <li><a class="dropdown-item" href="{% url "dashboard" %}">داشبورد</a></li>

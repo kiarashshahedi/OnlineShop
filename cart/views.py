@@ -42,7 +42,7 @@ def cart_delete(request):
 		product_id = int(request.POST.get('product_id'))
 		cart.delete(product=product_id)
 		response = JsonResponse({'product':product_id})
-		messages.success(request, ("Item Deleted From Shopping Cart..."))
+		messages.success(request, ("از سبدخرید حذف شد..."))
 		return response
 
 #update and edit sabad kharid
@@ -53,5 +53,5 @@ def cart_update(request):
 		product_qty = int(request.POST.get('product_qty'))
 		cart.update(product=product_id, quantity=product_qty)
 		response = JsonResponse({'qty':product_qty})
-		messages.success(request, ("Your Cart Has Been Updated..."))
+		messages.success(request, ("سبد خرید بروزرسانی شد..."))
 		return response
