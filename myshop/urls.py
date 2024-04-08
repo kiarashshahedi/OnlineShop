@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from AllPayments import urls as payments_urls
+from payment import urls as payments_urls
 #adding media url 
 from django.conf import settings
 from django.conf.urls.static import static

@@ -11,7 +11,7 @@ urlpatterns = [
     path('verify/', views.verify, name='verify'),
 
     #User dashboard page
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/<int:user_id>/', views.dashboard, name='dashboard'),
 
     #logout(for all parts used)
     path('logout/', views.logout_view, name='logout_view'), 
@@ -22,11 +22,16 @@ urlpatterns = [
     #Register with Mobile and Password
     path ('passRegister/', views.UsernameRegister, name='passRegister'),
 
+    path ('add_info/', views.add_info, name='add_info'),
+
     #update_user
     path('update_user/', views.update_user, name='update_user'),
 
     #update_pass
     path('update_password/', views.update_password, name='update_password'),
+
+    #update_User_info
+    path('update_info/', views.update_info, name='update_info'),
 
 
 ]

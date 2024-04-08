@@ -1,5 +1,5 @@
 from products.models import Product
-from custom_loggin.models import Profile
+from custom_loggin.models import MyUser
 
 
 class Cart():
@@ -29,7 +29,7 @@ class Cart():
 		self.session.modified = True
 
 		if self.request.user.is_authenticated:										# Deal with logged in user			
-			current_user = Profile.objects.filter(user__id=self.request.user.id)    # Get the current user profile			
+			current_user = MyUser.objects.filter(user__id=self.request.user.id)    # Get the current user profile			
 			carty = str(self.cart)   												# Convert {'3':1, '2':4} to {"3":1, "2":4}
 			carty = carty.replace("\'", "\"")			
 			current_user.update(old_cart=str(carty))    							# Save carty to the MyUser Model

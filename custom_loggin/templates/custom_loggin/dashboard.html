@@ -1,32 +1,31 @@
-{% extends 'products/base.html' %}
-{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome to Your Dashboard, {{ user.username }}</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save Changes">
+    </form>
+    
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
 
-<!-- Header-->
-<header class="bg-dark py-1">
-  <div class="container px-4 px-lg-5 my-5">
-      <div class="text-center text-white-50">
-          <h1 class="display-6 fw-bolder"> تک خرید </h1>
-          <p class="lead fw-normal text-white-50 mb-0"> خرید تک|خاص|امن ... داشبرد</p>
-      </div>
-  </div>
-</header>
 
-{% if user.is_authenticated %}
-     
-  <h2>Welcome to the Secure Dashboard Page </h2><br/><br/><br/><br/>
-  <div class="row">
-    <div class="col-md-6">   
-      <!-- user info -->       
-      <h3>-User Information :</h3>
-      <ul>
-        <li><strong>mobile:</strong> {{ user.mobile }}</li>
-        <li><strong>Email:</strong> {{ user.email }}</li>
-      </ul>
-      <br/><br/><br/><br/><br/><br/><br/>
-    </div> 
-   
-{% else %}
-  <p>Please log in to access the dashboard.</p>
-{% endif %}
-<br/><br/><br/><br/><br/><br/><br/><br/><br/>
-{% endblock %}
+    
+    
+        <h1>Welcome to Your Dashboard, {{ user.username }}</h1>
+        
+        <p>Email: {{ user.zipcode }}</p>
+        <p>Mobile: {{ user.mobile }}</p>
+        <!-- Include other fields as needed -->
+    
+</body>
+</html>

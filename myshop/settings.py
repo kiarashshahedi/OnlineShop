@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'products',
     'cart',
     'payments',
-    'AllPayments',
+    'payment',
     'checkout',
 
 ]
