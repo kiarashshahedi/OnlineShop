@@ -9,7 +9,6 @@ class RegisterForm(forms.ModelForm):
         model = MyUser
         fields = ['mobile', ]
 
-#form for registering with MOBILE and PASSWORD
 class SignUpForm(UserCreationForm):
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}))
 	first_name = forms.CharField(label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'First Name'}))
@@ -36,7 +35,6 @@ class SignUpForm(UserCreationForm):
 		self.fields['password2'].label = ''
 		self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
 
-#just update user info - NO PASS CHANGING -		
 class UpdateUserForm(UserChangeForm):
 	password = None
 	email = forms.EmailField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Email Address'}), required=False)
@@ -73,7 +71,7 @@ class ChangePasswordForm(SetPasswordForm):
 		self.fields['new_password2'].label = ''
 		self.fields['new_password2'].help_text = '<span class="form-text text-muted"><small>برای تایید همان رمز عبور قبلی را وارد کنید.</small></span>'
 
-#Form for User Info
+
 class UserInfoForm(forms.ModelForm):
 	phone = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Phone'}), required=False)
 	address1 = forms.CharField(label="", widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'Address 1'}), required=False)

@@ -2,27 +2,16 @@
 from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from .models import MyUser
 from .forms import RegisterForm, SignUpForm, UpdateUserForm, ChangePasswordForm, UserInfoForm
 from . import kavesms
 from .kavesms import get_random_otp
-from django.contrib import messages
 from payment.forms import ShippingForm
 from payment.models import ShippingAddress
-from django.contrib.auth.decorators import login_required
-
-#user dashboard page 
-@login_required
-def dashboard(request):
-    user = request.user
-    form = UserInfoForm(instance=user)  # Pass the user instance to the form
-    if request.method == 'POST':
-        form = UserInfoForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            # Add success message or redirect to another page
-    return render(request, 'custom_loggin/dashboard.html', {'user': user, 'form': form})
 
 #register user by sendding otp code from kavenegar
 def register_view(request):
@@ -91,28 +80,6 @@ def verify(request):
         messages.error(request, "خطا دوباره امتحان کنید.")
         return HttpResponseRedirect(reverse('register_view'))
     
-#logout user(for all steps works)
-def logout_view(request):
-    logout(request)
-    messages.success(request, (" شما خارج شدید"))
-    return redirect('product_list')
-
-#login user with mobile and password(superusers)
-def login_user(request):
-    if request.method == "POST":
-        mobile = request.POST['mobile'] 
-        password =  request.POST['password'] 
-        user = authenticate(request, mobile=mobile, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, ("با موفقیت وارد شدید...خوش آمدید"))
-            return redirect('product_list')
-        else:
-            messages.success(request, ("مشکلی پیش آمده...دوباره امتحان کنید"))
-            return redirect('login')
-    else:
-        return render(request, 'custom_loggin/login.html', {})
-        
 #register user with mobile and password  
 def UsernameRegister(request):
     form = SignUpForm
@@ -133,41 +100,33 @@ def UsernameRegister(request):
     else:
         return render(request, 'custom_loggin/passRegister.html', {'form':form})
 
-#adding user info after verify
-def add_info(request):
-      
-	form = SignUpForm()
-	if request.method == "POST":
-		form = SignUpForm(request.POST)
-		if form.is_valid():
-			form.save()
-			mobile = form.cleaned_data['mobile']
-			password = form.cleaned_data['password1']
-			# log in user
-			user = authenticate(mobile=mobile, password=password)
-			return redirect('update_info')
-		else:
-			messages.success(request, ("Whoops! There was a problem Registering, please try again..."))
-			return redirect('register_view')
-	else:
-		return render(request, 'custom_loggin/add_info.html', {'form':form})
+#login user with mobile and password
+def login_user(request):
+    if request.method == "POST":
+        mobile = request.POST['mobile'] 
+        password =  request.POST['password'] 
+        user = authenticate(request, mobile=mobile, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, ("با موفقیت وارد شدید...خوش آمدید"))
+            return redirect('product_list')
+        else:
+            messages.success(request, ("مشکلی پیش آمده...دوباره امتحان کنید"))
+            return redirect('login')
+    else:
+        return render(request, 'custom_loggin/login.html', {})
 
-#update user 
-def update_user(request):
-	if request.user.is_authenticated:
-		current_user = MyUser.objects.get(id=request.user.id)
-		user_form = UpdateUserForm(request.POST or None, instance=current_user)
+#logout user(for all steps works)
+def logout_view(request):
+    logout(request)
+    messages.success(request, (" شما خارج شدید"))
+    return redirect('product_list')
 
-		if user_form.is_valid():
-			user_form.save()
-
-			login(request, current_user)
-			messages.success(request, "اطلاعات حساب کاربری با موفقیت تغییر کرد!!")
-			return redirect('dashboard')
-		return render(request, "custom_loggin/update_user.html", {'user_form':user_form})
-	else:
-		messages.success(request, "لطفا ابتدا وارد شوید!!")
-		return redirect('login')
+#user dashboard page 
+@login_required
+def dashboard(request):
+        
+        return render(request, 'custom_loggin/dashboard.html')
 
 #update user pass
 def update_password(request):
@@ -192,27 +151,66 @@ def update_password(request):
 		messages.success(request, "لطفا ابتدا وارد شوید")
 		return redirect('login')
 
-#update user info
-def update_info(request):
-	if request.user.is_authenticated:
-		# Get Current User
-		current_user = MyUser.objects.get(user__id=request.user.id)
-		# Get Current User's Shipping Info
-		shipping_user = ShippingAddress.objects.get(user__id=request.user.id)
-		
-		# Get original User Form
-		form = UserInfoForm(request.POST or None, instance=current_user)
-		# Get User's Shipping Form
-		shipping_form = ShippingForm(request.POST or None, instance=shipping_user)		
-		if form.is_valid() or shipping_form.is_valid():
-			# Save original form
-			form.save()
-			# Save shipping form
-			shipping_form.save()
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = get_object_or_404(MyUser, id=request.user.id)
+        user_form = UpdateUserForm(request.POST or None, instance=current_user)
 
-			messages.success(request, "Your Info Has Been Updated!!")
-			return redirect('product_list')
-		return render(request, "custom_loggin/update_info.html", {'form':form, 'shipping_form':shipping_form})
-	else:
-		messages.success(request, "You Must Be Logged In To Access That Page!!")
-		return redirect('product_list')
+        if request.method == 'POST':
+            if user_form.is_valid():
+                user_form.save()
+                messages.success(request, "User information has been updated!")
+                return redirect('update_info')  # Redirect to a success page or another view
+
+        return render(request, "custom_loggin/update_user.html", {'user_form': user_form})
+    else:
+        messages.error(request, "You must be logged in to access this page.")
+        return redirect('register_view')
+     
+#get shipping info
+def update_info(request):
+    if request.user.is_authenticated:
+        # Get Current User
+        current_user = request.user
+
+        try:
+            # Get Current User's Shipping Info
+            shipping_user = ShippingAddress.objects.get(user=current_user)
+        except ShippingAddress.DoesNotExist:
+            # Create a new ShippingAddress instance if it doesn't exist
+            shipping_user = ShippingAddress(user=current_user)
+            shipping_user.save()
+
+        # Get original User Form
+        form = UserInfoForm(request.POST or None, instance=current_user)
+        
+        # Get User's Shipping Form
+        shipping_form = ShippingForm(request.POST or None, instance=shipping_user)
+        
+        if request.method == 'POST':
+            if form.is_valid() and shipping_form.is_valid():
+                # Save original form
+                form.save()
+                # Save shipping form
+                shipping_form.save()
+
+                messages.success(request, "Your Info Has Been Updated!!")
+                return redirect('dashboard')
+
+        return render(request, "custom_loggin/update_info.html", {'form': form, 'shipping_form': shipping_form})
+    else:
+        messages.success(request, "You Must Be Logged In To Access That Page!!")
+        return redirect('register_view')
+
+def edit_user_info(request):
+    # Get the current user
+    user = MyUser.objects.get(user__id=request.user.id)
+    if request.method == 'POST':
+        form = UserInfoForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your information has been updated successfully.')
+            return redirect('dashboard')  
+    else:
+        form = UserInfoForm(instance=user)
+    return render(request, 'custom_loggin/edit_info.html', {'form': form})

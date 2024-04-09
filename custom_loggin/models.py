@@ -6,17 +6,10 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 import datetime
 
-''' 
-Custom_Loggin Contains 
-All Users   
--Registering-Signin-Loggout-  
-and 
-User Profile
-+ updating   
-''' 
-
 #user data for login and signup - CUSTOMERS ------------------------
+
 class MyUser(AbstractUser):
+    user = models.OneToOneField('self', on_delete=models.CASCADE, unique=True, related_name='MyUser', null=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     username = models.CharField(max_length=30)
@@ -66,11 +59,13 @@ class MyUser(AbstractUser):
         return self.mobile
 
 
-# Create a user Profile by default when user signs up----------------
+# Create a user Profile by default when user signs up
+
 def create_profile(sender, instance, created, **kwargs):
 	if created:
 		user_profile = MyUser(user=instance)
 		user_profile.save()
 
-# Automate the profile thing-----------------------------------------
+# Automate the profile thing
+
 post_save.connect(create_profile, sender=MyUser)
