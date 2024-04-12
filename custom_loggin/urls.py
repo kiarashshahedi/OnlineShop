@@ -11,8 +11,7 @@ urlpatterns = [
     path('verify/', views.verify, name='verify'),
 
     #User dashboard page
-    path('dashboard/<int:user_id>/', views.dashboard, name='dashboard'),
-
+    path('dashboard/', views.dashboard, name='dashboard'),
     #logout(for all parts used)
     path('logout/', views.logout_view, name='logout_view'), 
 

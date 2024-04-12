@@ -125,8 +125,8 @@ def logout_view(request):
 #user dashboard page 
 @login_required
 def dashboard(request):
-        
-        return render(request, 'custom_loggin/dashboard.html')
+    user = request.user
+    return render(request, 'custom_loggin/dashboard.html', {'user': user})
 
 #update user pass
 def update_password(request):
