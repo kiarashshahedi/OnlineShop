@@ -1,70 +1,111 @@
-<body>
-    <nav class="navbar navbar-expand-lg bg-success bg-gradient">
-        <div class="container-fluid ">
-            <!--right-->
-                <!-- Dastebandi (Categories) -->
-                <ul class="navbar-nav text-center mb-lg-0 text-white fill ">
-                    <li class="nav-item dropdown mx-auto ">
-                        <a class="fa nav-link dropdown-toggle bg-gradient h1 animnavbar mx-1 bg-warning text-dark rounded-3 fw-bold " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-list mx-1" > </i></a>
-                        <ul class="dropdown-menu mx-auto">
-                            <li><a class="dropdown-item" href="{% url "category_summary" %}">همه ی دسته بندی ها</a></li>
-                            <li><a class="dropdown-item fa" href="#">تخفیف خورده</a></li>
-                            <li><a class="dropdown-item fa" href="#">پرفروش</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item fa" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <!-- Navbar Brand (Logo and Animation) -->
-                    <a class="navbar-brand fa fw-bold text-dark ms-1 bg-success text-dark rounded-3 fw-bold " href="{% url "product_list" %}"></a>
-                    <h5 class="me-1 fa animate-charcter fw-bold"><a href="{% url "product_list" %}"> تک خرید</a></h5>
-                    <!-- Navbar Toggler (for Small Screens) -->
-                    <button class="me-3 navbar-toggler bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon ms-1 me-1"></span>
-                    </button>
-                    <!-- Navbar Collapse Content -->
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+{% load static %}
 
-                </ul>
+        <nav class="navbar navbar-expand-lg color1 ">
+            <div class="container-fluid  py-2 ">
                 
-                <!--left-->
-                <ul class="navbar-nav text-center mb-lg-0 text-white fill">
+                <!-- logo -->
+                <a class="navbar-brand" href="{% url "product_list" %}"> <img class=" me-1 " src="{% static 'products/img/logo.png' %}" style="width: 180px ; height: 50px;" alt="TAKKHARID"></a>
+                <button class="navbar-toggler justify-content-end " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-end text-white"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-4 text-center ">
 
-                    <!-- Hesab Karbari (User Account) -->               
-                    <li class="nav-item dropdown mx-1">
-                        <a href="#" class="nav-link dropdown-toggle text-warning fa" role="button" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            {% if user.is_authenticated %}
-                                <li><a class="dropdown-item" href="{% url "dashboard" %}">داشبورد</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url "logout_view" %}">خروج از حساب کاربری</a></li>                
-                                <li><a class="dropdown-item" href="{% url "update_user" %}"> ادیت پروفایل </a></li>
-                                <li><a class="dropdown-item" href="{% url 'update_info'  %}">User Info</a></li>
+
+                        <!-- daste bandi -->
+                        <div class=" col-md-3 color1 ms-4 mt-2 text-center align-items-center">
+
+                            <span id="kia" class="text-white activate " type="button" data-bs-toggle="dropdown">
+                                <i class="bi bi-menu-button-wide mx-1"></i>
+                                دسته بندی کالا
+                            </span>
+
+                            <div class="dropdown ">
+                                <ul class="dropdown-menu color1 text-center">
+                                    <li><button class="dropdown-item text-white" type="button">Action</button></li>
+                                    <li><button class="dropdown-item text-white" type="button">Another action</button></li>
+                                    <li><button class="dropdown-item text-white" type="button">Something else here</button></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <!--other navbar options-->
+                        <div class=" col-md-10 color1 mt-2 text-start  ">
+
+                            <a style="text-decoration: none;" href="#" class="text-white mx-2">
+                                <i class="bi bi-fire mx-1"></i>پرفروش ها
+                            </a>
+
+                            <a style="text-decoration: none;" href="#" class="text-white mx-2">
+                                <i class="bi bi-percent mx-1"></i> تخفیف خورده
+                            </a>
+
+                            <a style="text-decoration: none;" href="#" class="text-white mx-2">
+                                <i class="bi bi-threads mx-1"></i> درباره با ما
+                            </a>
+
+                        </div>
+
+                    </ul>
+
+                    <!--search-->
+                    <li class="nav-item d-flex mx-1" style="margin-top: -5px;">
+                        <div id="btnsearchhd" class="mt-1 d-none d-md-block">
+                            <form class="form-inline">
+                                <div class="input-group input-group-sm">
+                                    <input type="search" class="form-control form-control-sm" placeholder="محصول یا برند مورد نظر جست و جو کنید" aria-label="Search" aria-describedby="btnSearch">
+                                    <button class="bi bi-search text-black btn btn-light btn-sm" type="submit" id="btnSearch"></button>
+                                </div>
+                            </form>
+                        </div>               
+                    </li>
+
+                    <!--hesab karbari-->
+                    <li class="nav-item mx-1">
+                        <div class="text-center d-flex justify-content-between">
+                            {% if not user.is_authenticated %}
+                                <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</button>
                             {% else %}
-                                <li><a class="dropdown-item" href="{% url "login" %}">ورود</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="{% url "register_view" %}">ثبت نام</a></li>
+                                <div class="nav-item dropdown">
+                                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</button>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                        <li><a class="dropdown-item text-black" href="{% url "dashboard" %}">داشبورد</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-black" href="{% url "logout_view" %}">خروج از حساب کاربری</a></li>
+                                        <li><a class="dropdown-item text-black" href="{% url "update_user" %}"> ادیت پروفایل </a></li>
+                                        <li><a class="dropdown-item text-black" href="{% url 'update_info'  %}">User Info</a></li>
+                                    </ul>
+                                </div>
                             {% endif %}
-                        </ul>
+                        </div>
                     </li>
-                    <!--Safe Asli-->
+
+                    <!--sabad kharid-->
                     <li class="nav-item mx-1">
-                        <a class="nav-link active d-flex flex-column align-items-center justify-content-center bg-info px-3 rounded-circle" href="{% url 'product_list' %}">
-                            <i class="bi bi-house"></i>
-                            <span class="fw-bold"> </span>
-                        </a>
+                        <div class="text-center d-flex justify-content-between">
+                            <button type="button" class="btn btn-light btn-sm" onclick="location.href='{% url 'cart_summary' %}'">
+                                <i class="bi bi-cart fw-bold activate" style="font-size: 0.875rem;"></i>
+                                <span class="badge bg-light text-dark ms-2 rounded-pill" style="font-size: 0.8rem;">
+                                    {{ cart|length }}
+                                </span>
+                            </button>
+                        </div>
                     </li>
-                    <!-- Sabad Kharid (Shopping Cart) -->
-                    <li class="nav-item mx-1">
-                        <a href="{% url 'cart_summary' %}" class="nav-link active d-flex align-items-center bg-warning px-3 rounded-pill">
-                            <i class="bi bi-cart-fill me-2"></i>
-                            <span class="fw-bold">سبد خرید</span>
-                            <span class="badge bg-light text-dark ms-2 rounded-pill" style="font-size: 0.9rem;" id="cart_quantity">{{ cart|length }}</span>
-                        </a>
-                    </li>
+
                     
-                </ul>
+                    
+                    
+                    
+                    
+                    
+                    
+
+
+                </div>
+
+
             </div>
-        </div>
-    </nav>
-</body>
+
+        </nav>
+

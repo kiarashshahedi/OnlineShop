@@ -74,6 +74,9 @@
 // Check if button pressed
 $(document).on('click', '#add-cart', function(e){
     e.preventDefault();
+    var productID = $(this).val();  // Get the product ID from the button clicked
+    var quantity = $('#qty-cart').val();  // Get the selected quantity
+
     $.ajax({
         type: 'POST',
         url: '{% url 'cart_add' %}',
@@ -86,10 +89,9 @@ $(document).on('click', '#add-cart', function(e){
 
         success: function(json){
             
-            document.getElementById("cart_quantity").textContent = json.qty
-            location.reload();
+           $('#cart_quantity').text(json.qty);  // Update cart quantity on the page
+            location.reload();  // Reload the page after adding to cart
         },
-
         error: function(xhr, errmsg, err){
 
         }

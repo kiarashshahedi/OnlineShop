@@ -1,36 +1,21 @@
+const select1 = document.querySelector("#btnsearchhd");
+const show1 = document.querySelector("#btnsearch");
 
-import { Ripple, initMDB } from "mdb-ui-kit";
+function hide1() {
+    select1.classList.add("hiden");
+}
+select1.addEventListener("click", hide1)
 
-initMDB({ Ripple });
-document.addEventListener('DOMContentLoaded', function () {
-    var stripeInput = document.getElementById('id_stripe_token');
-    var form = stripeInput.form;
-    var publishableKey = stripeInput.attributes['data-publishable-key'].value;
-    Stripe.setPublishableKey(publishableKey);
-    form.addEventListener('submit', function (e) {
-        var button = this.querySelector('[type=submit]');
-        button.disabled = true;
-        Stripe.card.createToken({
-            name: this.elements.id_name.value,
-            number: this.elements.id_number.value,
-            cvc: this.elements.id_cvv2.value,
-            exp_month: this.elements.id_expiration_0.value,
-            exp_year: this.elements.id_expiration_1.value,
-            address_line1: stripeInput.attributes['data-address-line1'].value,
-            address_line2: stripeInput.attributes['data-address-line2'].value,
-            address_city: stripeInput.attributes['data-address-city'].value,
-            address_state: stripeInput.attributes['data-address-state'].value,
-            address_zip: stripeInput.attributes['data-address-zip'].value,
-            address_country: stripeInput.attributes['data-address-country'].value
-        }, function (status, response) {
-            if (400 <= status && status <= 500) {
-                alert(response.error.message);
-                button.disabled = false;
-            } else {
-                stripeInput.value = response.id;
-                form.submit();
-            }
-        });
-        e.preventDefault();
-    }, false);
-}, false);
+function unhide1() {
+    show1.classList.remove("hiden");
+}
+select1.addEventListener("click", unhide1)
+
+const select2 = document.querySelector("#kia");
+const show2 = document.querySelector("#kiahd");
+
+function kia() {
+    show2.classList.toggle("hiden");
+
+}
+select2.addEventListener("mouseover", kia)
