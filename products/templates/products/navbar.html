@@ -64,9 +64,7 @@
                     <!--hesab karbari-->
                     <li class="nav-item mx-1">
                         <div class="text-center d-flex justify-content-between">
-                            {% if not user.is_authenticated %}
-                                <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</button>
-                            {% else %}
+                            {% if  user.is_authenticated %}
                                 <div class="nav-item dropdown">
                                     <button class="btn btn-light btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">حساب کاربری</button>
                                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
@@ -76,6 +74,11 @@
                                         <li><a class="dropdown-item text-black" href="{% url "update_user" %}"> ادیت پروفایل </a></li>
                                         <li><a class="dropdown-item text-black" href="{% url 'update_info'  %}">User Info</a></li>
                                     </ul>
+                                </div>
+                                {% else %}
+                                
+            
+                                    <button type="button " class="btn btn-light mx-2 "><a class="dropdown-item" href="{% url "register_view" %}"> ورود | ثبت نام</a></button>
                                 </div>
                             {% endif %}
                         </div>

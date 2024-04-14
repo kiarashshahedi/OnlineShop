@@ -2,23 +2,23 @@
 {% block body %}
 </br>
 
-<section class="vh bg-success" >
+<section class="vh color1" >
   <div class="row d-flex justify-content-center align-items-center h-100">
     <div class="col">
-      <p><h3 class="text-light mx-4 px-4 bi-cart-check"> سبدخرید</h3></p>
+      <p><h3 class="text-light mx-4 px-4 bi-cart-check text-center"> سبدخرید</h3></p>
       {% comment %} <h6 class="text-center text-bg-warning text-light">تعداد کالا:{{product_qty}}</h6> {% endcomment %}
       {% if cart_products %}
       {% for product in cart_products %} 
       <div class="container" >       
-        <div class="card mb-4" style="background-color: hsl(240, 0%, 90%)">
+        <div class="card mb-4 ">
           <div class="card-body p-4">
             <div class="row align-items-center">
 
-              <div class="col-md-4">       
+              <div class="col-md-4 ">       
                 <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="..." class="img-fluid" alt="Generic placeholder image">
               </div>
-
-            <div class="col-md-2 d-flex justify-content-center">
+            
+            <div class="col-md-2 d-flex justify-content-center ">
               <div>
                 <p class="small text-muted mb-1 pb-1">اسم محصول: </p>
                 <p class="lead fw-normal mb-0">
