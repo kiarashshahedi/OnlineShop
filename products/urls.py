@@ -28,5 +28,8 @@ urlpatterns = [
     #category summary
     path('category_summary/', views.category_summary, name="category_summary"),
 
+    #search
+    path('search/', views.search_view, name="search"),
+    path('detail/<int:pk>/', views.detail_view, name='detail'),  # Define the detail view URL pattern
 
 ]

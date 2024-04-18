@@ -21,7 +21,7 @@ urlpatterns = [
     #Register with Mobile and Password
     path ('passRegister/', views.UsernameRegister, name='passRegister'),
 
-    path('edit/', views.edit_user_info, name='edit_user_info'),
+    path('edit/', views.edit_user_info, name='edit_info'),
 
     #update_user
     path('update_user/', views.update_user, name='update_user'),

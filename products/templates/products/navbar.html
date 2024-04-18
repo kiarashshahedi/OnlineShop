@@ -4,7 +4,7 @@
             <div class="container-fluid  py-2 ">
                 
                 <!-- logo -->
-                <a class="navbar-brand" href="{% url "product_list" %}"> <img class=" me-1 " src="{% static 'products/img/logo.png' %}" style="width: 180px ; height: 50px;" alt="TAKKHARID"></a>
+                <a class="navbar-brand" href="{% url "product_list" %}"> <img class=" me-1 " src="{% static 'products/img/logo1.jpg' %}" style="width: 180px ; height: 50px;" alt="TAKKHARID"></a>
                 <button class="navbar-toggler justify-content-end " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon text-end text-white"></span>
                 </button>
@@ -49,17 +49,19 @@
 
                     </ul>
 
-                    <!--search-->
+                    <!-- search.html -->
                     <li class="nav-item d-flex mx-1" style="margin-top: -5px;">
                         <div id="btnsearchhd" class="mt-1 d-none d-md-block">
-                            <form class="form-inline">
+                            <form class="form-inline" action="{% url 'search' %}" method="GET">
+                                {% csrf_token %}
                                 <div class="input-group input-group-sm">
-                                    <input type="search" class="form-control form-control-sm" placeholder="محصول یا برند مورد نظر جست و جو کنید" aria-label="Search" aria-describedby="btnSearch">
+                                    <input type="search" name="query" class="form-control form-control-sm" placeholder="محصول یا برند مورد نظر جست و جو کنید" aria-label="Search" aria-describedby="btnSearch">
                                     <button class="bi bi-search text-black btn btn-light btn-sm" type="submit" id="btnSearch"></button>
                                 </div>
                             </form>
                         </div>               
                     </li>
+
 
                     <!--hesab karbari-->
                     <li class="nav-item mx-1">

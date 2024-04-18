@@ -16,5 +16,5 @@ class ProductForm(forms.ModelForm):
 
 
 
-class ProductSearchForm(SearchForm):
-    pass
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Search')

@@ -2,11 +2,12 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, Category
 from django.views.decorators.cache import cache_page
-from .forms import ProductForm
+from .forms import ProductForm, SearchForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from .models import Product
+from django.db.models import Q
 
 #home page that shows list of products
 def product_list(request, category_slug=None):
@@ -79,3 +80,21 @@ def category(request, foo):
 def category_summary(request):
     categories = Category.objects.all()
     return render(request, 'products/category_summary.html', {"categories":categories})
+
+
+#search
+def search_view(request):
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Product.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+            return render(request, 'products/search_results.html', {'results': results, 'query': query})
+    else:
+        form = SearchForm()
+    return render(request, 'products/search.html', {'form': form})
+
+def detail_view(request, pk):
+    # Retrieve the item using the primary key (pk)
+    item = get_object_or_404(Product, pk=pk)
+    return render(request, 'detail.html', {'item': item})
