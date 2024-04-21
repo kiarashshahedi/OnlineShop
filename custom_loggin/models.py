@@ -61,11 +61,11 @@ class MyUser(AbstractUser):
 
 # Create a user Profile by default when user signs up
 
+# Update the create_profile function to perform actions after MyUser instance creation
 def create_profile(sender, instance, created, **kwargs):
-	if created:
-		user_profile = MyUser(user=instance)
-		user_profile.save()
+    if created:
+        # Perform actions after MyUser instance creation here
+        pass
 
-# Automate the profile thing
-
+# Connect the signal to the function
 post_save.connect(create_profile, sender=MyUser)
