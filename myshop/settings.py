@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'checkout',
     'rest_framework',
     'api',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [

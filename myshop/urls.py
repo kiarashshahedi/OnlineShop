@@ -4,6 +4,12 @@ from payment import urls as payments_urls
 #adding media url 
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_swagger.views import get_swagger_view
+
+
+
+schema_view = get_swagger_view(title='Your Project API')
+
 
 
 urlpatterns = [
@@ -13,6 +19,7 @@ urlpatterns = [
     path('', include('products.urls')),
     path('cart/', include('cart.urls')),
     path('api/', include('api.urls')),
+    path('api/docs/', schema_view), 
 
 
 ]

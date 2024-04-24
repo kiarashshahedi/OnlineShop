@@ -13,8 +13,10 @@ urlpatterns = [
     #home page that shows all products
     path('', views.product_list, name='product_list'),
 
-    #product details (after clicking on product list iteams views each iteam info)
+    #product details (after clicking on product list iteams views each iteam info)+rates
     path('product_detail/<int:pk>/', views.product_detail, name='product_detail'),
+    path('product_detail/<int:pk>/add_review/', views.add_review, name='add_review'),  # Define the URL pattern for adding a review
+
 
     #user dashboard page (include user info - shopping info - & ...)
     path('dashboard/', loggin_views.dashboard, name='dashboard'),

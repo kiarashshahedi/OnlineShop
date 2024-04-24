@@ -2,12 +2,13 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, Category
 from django.views.decorators.cache import cache_page
-from .forms import ProductForm, SearchForm
+from .forms import ProductForm, SearchForm, ReviewForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from .models import Product
 from django.db.models import Q
+from .models import Review
+from custom_loggin.models import MyUser
 
 #home page that shows list of products
 def product_list(request, category_slug=None):
@@ -36,7 +37,20 @@ def product_list(request, category_slug=None):
 #after clicking on a product on home page shows details of that product
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
-    return render(request, 'products/product_detail.html', {'product': product})
+    reviews = product.reviews.all()
+    form = ReviewForm()
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.save()
+            product.update_ratings()
+            return redirect('product_detail', pk=pk)
+
+    return render(request, 'products/product_details.html', {'product': product, 'reviews': reviews, 'form': form})
 
 #adding product on website(for admins)
 @login_required(login_url='login')  # Require authentication to access this view
@@ -81,7 +95,6 @@ def category_summary(request):
     categories = Category.objects.all()
     return render(request, 'products/category_summary.html', {"categories":categories})
 
-
 #search
 def search_view(request):
     if request.method == 'GET':
@@ -98,3 +111,18 @@ def detail_view(request, pk):
     # Retrieve the item using the primary key (pk)
     item = get_object_or_404(Product, pk=pk)
     return render(request, 'detail.html', {'item': item})
+
+#rating:
+def add_review(request, pk):
+    if request.method == 'POST':
+        # Process the form submission and save the review to the database
+        # This is just a placeholder, you need to replace it with your actual implementation
+        # For example:
+        product = Product.objects.get(pk=pk)
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment')
+        review = Review.objects.create(product=product, user=request.user, rating=rating, comment=comment)
+        return redirect('product_detail', pk=pk)
+    else:
+        # Handle GET requests if necessary
+        pass

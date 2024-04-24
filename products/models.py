@@ -23,18 +23,35 @@ class Product(models.Model):
     in_sale = models.BooleanField(default=False)
     sale_price = models.DecimalField(default=0, max_digits=9, decimal_places=3)
 
+    def update_ratings(self):
+        reviews = self.reviews.all()
+        total_ratings = reviews.count()
+        if total_ratings > 0:
+            sum_ratings = sum(review.rating for review in reviews if review.rating is not None)
+            self.average_rating = sum_ratings / total_ratings
+        else:
+            self.average_rating = 0.0
+        self.total_ratings = total_ratings
+        self.save()
 
     def __str__(self):
         return self.name
+    
 
 #the rate of the product
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    rating = models.IntegerField()
-    comment = models.TextField()
+    rating = models.IntegerField(null=True, blank=True)  # Rating (1 to 5 stars)
+    comment = models.TextField(null=True, blank=True)  # Comment text
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ['product', 'user']
+
+
+    def __str__(self):
+        return f"Review for {self.product.name} by {self.user.username}"
 
 #Customers Order
 class Order(models.Model):

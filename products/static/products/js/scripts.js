@@ -1,13 +1,13 @@
 const select1 = document.querySelector("#btnsearchhd");
 const show1 = document.querySelector("#btnsearch");
 
-function hide1() {
-    select1.classList.add("hiden");
-}
-select1.addEventListener("click", hide1)
+// function hide1() {
+//     select1.classList.toggle("hiden");
+// }
+// select1.addEventListener("click", hide1)
 
 function unhide1() {
-    show1.classList.remove("hiden");
+    show1.classList.toggle("hiden");
 }
 select1.addEventListener("click", unhide1)
 

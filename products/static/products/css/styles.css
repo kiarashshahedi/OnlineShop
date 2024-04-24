@@ -1,0 +1,105 @@
+@font-face {
+    font-family: "vazir";
+    src: url(/fonts/vazir.ttf);
+}
+
+body {
+    font-family: "vazir";
+    background-color: rgb(220, 220, 225);
+}
+
+.hiden {
+    display: none;
+}
+
+.color1 {
+    background-color: #ff3333;
+}
+
+a {
+    text-decoration: none;
+}
+
+.background-color1-op {
+    background-color: #fa4747;
+}
+
+.border-color {
+    border: #ff3333;
+    border-color: #ff3333;
+}
+
+.color3 {
+    background-color: rgb(71, 67, 67);
+}
+
+li {
+    list-style-type: none;
+}
+
+.text-colorforbuyLow {
+    color: rgb(94, 92, 92);
+}
+
+.text-colorforbuy {
+    color: rgb(145, 145, 145);
+}
+
+.colorMoney {
+    color: rgb(6, 199, 6);
+}
+
+.btncolorbuy {
+    background-color: #00bfd6;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.rate {
+    float: left;
+    height: 46px;
+    padding: 0 10px;
+}
+
+.line-through {
+    text-decoration-line: line-through;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: #ffc700;
+}
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: #deb217;
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #c59b08;
+}
