@@ -15,6 +15,8 @@ def product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
     products = Product.objects.select_related('category').all()
+    sale = Product.objects.select_related('category').filter(in_sale=True) 
+
 
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
@@ -32,7 +34,7 @@ def product_list(request, category_slug=None):
         # If page is out of range (e.g., 9999), deliver last page.
         products = paginator.page(paginator.num_pages)
 
-    return render(request, 'products/home-product-list.html', {'category': category, 'categories': categories, 'products': products})
+    return render(request, 'products/home-product-list.html', {'category': category, 'categories': categories, 'products': products, 'sale': sale})
 
 #after clicking on a product on home page shows details of that product
 def product_detail(request, pk):

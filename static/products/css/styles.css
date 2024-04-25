@@ -3,9 +3,32 @@
     src: url(/fonts/vazir.ttf);
 }
 
+@font-face {
+    font-family: "Tak";
+    src: url(/fonts/impact.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+
 body {
     font-family: "vazir";
-    background-color: rgb(220, 220, 225);
+}
+
+.Tak {
+    font-family: "Tak";
 }
 
 .hiden {
@@ -16,12 +39,16 @@ body {
     background-color: #ff3333;
 }
 
+.color2 {
+    background-color: #e2e0e0;
+}
+
 a {
     text-decoration: none;
 }
 
 .background-color1-op {
-    background-color: #fa4747;
+    background-color: #ff3333;
 }
 
 .border-color {
@@ -102,4 +129,48 @@ li {
 .rate>input:checked~label:hover~label,
 .rate>label:hover~input:checked~label {
     color: #c59b08;
+}
+
+#instgram {
+    color: rgb(0, 0, 0);
+    transition: rotate 1s;
+}
+
+#freeze {
+    position: fixed;
+    z-index: 999;
+}
+
+#instgram:hover {
+    rotate: 360deg;
+    color: #ff3333;
+}
+
+.instgram1 {
+    color: rgb(0, 0, 0);
+    transition: rotate 1s;
+}
+
+.instgram1:hover {
+    rotate: 360deg;
+    color: #ff3333;
+}
+
+.instgram2 {
+    color: rgb(0, 0, 0);
+    transition: rotate 1s;
+}
+
+.instgram2:hover {
+    rotate: 360deg;
+    color: #ff3333;
+}
+
+@keyframes margin-right {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(100%);
+    }
 }
