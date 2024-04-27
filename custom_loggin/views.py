@@ -139,7 +139,7 @@ def update_password(request):
 				form.save()
 				messages.success(request, "پسورد شما با موفقیت تغییر یافت...")
 				login(request, current_user)
-				return redirect('update_user')
+				return redirect('dashboard')
 			else:
 				for error in list(form.errors.values()):
 					messages.error(request, error)
@@ -149,7 +149,7 @@ def update_password(request):
 			return render(request, "custom_loggin/update_password.html", {'form':form})
 	else:
 		messages.success(request, "لطفا ابتدا وارد شوید")
-		return redirect('login')
+		return redirect('register')
 
 def update_user(request):
     if request.user.is_authenticated:
@@ -160,7 +160,7 @@ def update_user(request):
             if user_form.is_valid():
                 user_form.save()
                 messages.success(request, "User information has been updated!")
-                return redirect('update_info')  # Redirect to a success page or another view
+                return redirect('dashboard')  # Redirect to a success page or another view
 
         return render(request, "custom_loggin/update_user.html", {'user_form': user_form})
     else:

@@ -1,72 +1,276 @@
 {% extends 'products/base.html' %}
-
+{% block head_extra %}
+<style>
+    .dashboard:hover {
+        color: #007aff;
+    }
+    
+    .border-plus {
+        border-color: #007aff;
+    }
+    
+    .form {
+        width: 30%;
+        position: relative;
+        height: 60px;
+        overflow: hidden;
+    }
+    
+    .form input {
+        width: 100%;
+        height: 100%;
+        color: #000000;
+        padding-top: 20px;
+        border: none;
+    }
+    
+    .form label {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        border-bottom: 1px solid #007aff;
+    }
+    
+    .form label::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+        border-bottom: 3px solid #ff3333;
+        transform: translateX(-100%);
+        transition: all 0.3s ease;
+    }
+    
+    .content-name {
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+        padding-bottom: 5px;
+        transition: all 0.3s ease;
+    }
+    
+    .form input:focus {
+        outline: none;
+    }
+    
+    .form input:focus+.label-name .content-name,
+    .form input:valid+.label-name .content-name {
+        transform: translateY(-150%);
+        font-size: 14px;
+        left: 0px;
+        color: #ff3333;
+    }
+    
+    .form input:focus+.label-name::after,
+    .form input:valid+.label-name::after {
+        transform: translateX(0%);
+    }
+</style>
+{% endblock %}
+    
 {% block body %}
-<div class="container-fluid accordion-body bi-arrow-90deg-down" >
-    <div class="row justify-content-end fw-bold">
-        <div class="col-md-4">
-            <div class="card profile-card bg-light">
-                <div class="card-header color1 text-white mx-4">
-                    <h5 class="card-title mb-1 mx-auto ">اطلاعات حساب</h5>
+
+<div class="container mt-5  ">
+    <div class="row mt-3 mx-5 ">
+        <div class="col-12 col-md-3 border border-4 rounded-2">
+
+            <ul class="mt-4 ">
+                <li id="click1" class=" mt-3 dashboard d-flex text-center border-bottom">
+                    <button class="btn">
+
+                        <i class="bi bi-person-circle mx-2 h4 "></i>
+                        <span class=" mt-1 fw-bold ">
+                            اطلاعات حساب
+                        </span>
+                    </button>
+
+                </li>
+
+                <li id="click2" class=" mt-3 dashboard d-flex text-center border-bottom">
+                    <button class="btn">
+                    <i class="bi bi-box-seam mx-2 h4 "></i>
+                    <span class=" mt-0 fw-bold ">
+                سفارش ها
+                    </span>
+                </button>
+                </li>
+
+                <li id="click3" class=" mt-3 dashboard d-flex text-center border-bottom">
+                    <button class="btn">
+                    <i class="bi bi-pencil-square mx-2 mt-3 h4 "></i>
+                    <span class=" mb-2 fw-bold ">
+                   ویرایش حساب 
+                    </span>
+                </button>
+                </li>
+
+                <!--  -->
+                <li class="mt-3 dashboard d-flex text-center ">
+                    <button class="btn">
+                    <i class="bi bi-box-arrow-right mx-2 h4 "></i>
+                    <span class=" mt-0 fw-bold "><a  href="{% url 'logout_view' %}">خروج</a></span>
+                </button>
+                </li>
+            </ul>
+        </div>
+
+
+        <div class="col-12 col-md-8 justify-content-start mx-2 ">
+            <div class="mt-2">
+                <!-- user about -->
+                <div id="showclick1" class=" rounded-3 border-2 border bg-white border-primary">
+                    <div class="d-flex text-center mx-3 mt-3">
+
+                        <i class="bi bi-person mx-2 h3 text-primary  "></i>
+                        <span class=" mt-1 fw-bold fw-bold ">
+                            مشخصات 
+                        </span>
+
+                    </div>
+                    <div class=" col-12 col-md-9 mx-auto   mx-5 ">
+                        <div class="d-flex justify-content-between ">
+
+                            <span class=" mx-1 text-colorforbuyLow">اسم :<span class="mx-1 text-black fw-bold">{{ user.first_name }}</span></span>
+
+                            <span class=" mx-1  text-colorforbuyLow">فامیل :<span class="mx-1 text-black fw-bold">{{ user.last_name }}</span> </span>
+                        </div>
+                        <br>
+
+
+                        <div class="d-flex justify-content-between mt-3 mb-3">
+                            <span class=" text-colorforbuyLow">شماره :<span class=" text-black fw-bold">{{ user.mobile }}</span></span>
+
+                            <span class=" mx-1 text-colorforbuyLow"> ایمیل:<span class="mx-1 text-black fw-bold">{{ user.email }}</span></span>
+                        </div>
+                        <br>
+                        <br>
+
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">First Name:</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-plaintext">{{ user.first_name }}</p>
+                
+
+
+                <!-- Buy Me  -->
+                <div id="showclick2" class=" hiden bg-white rounded-3 border-2 border bg-white border-primary">
+                    <div class="mt-2">
+                        <div class="d-flex text-center mx-3 mt-3">
+
+                            <i class="bi bi-box-seam mx-2 h3 text-primary  "></i>
+                            <span class=" mt-1 fw-bold fw-bold ">
+                            تاریخچه سفارشات
+                        </span>
+                        </div>
+
+                        <div class="d-flex mx-3 text-colorforbuyLow">
+                            <p class="mx-2">جاری </p>
+                            <p class="mx-2">تحویل داده شده</p>
+                            <p class="mx-2">مرجوع</p>
+                            <p class="mx-2">لغو شده</p>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Last Name:</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-plaintext">{{ user.last_name }}</p>
+                </div>
+
+
+
+                <!-- VIRAYESH HESAB KARBARI -->
+                <div id="showclick3" class=" hiden bg-white rounded-3 border-3 border bg-white border-primary">
+                    <div class="">
+
+                        <div class="d-flex text-center mx-3 mt-3">
+
+                            <i class="bi bi-pencil-square mx-2 h3 text-primary  "></i>
+                            <span class=" mt-1 fw-bold fw-bold ">
+                            ویرایش حساب کاربری
+                        </span>
+                        </div>
+
+
+
+                        <!-- LIST FOR EDIT ACCOUNT -->
+                        <br>
+                        <br>
+                        <br>
+                        <div class="text-center">
+                            <a href="{% url 'update_password' %}" class="btn btn-danger background-color1-op">تغییر رمز عبور</a>
+                            <a href="{% url 'update_user' %}" class="btn btn-danger background-color1-op">تغییر اطلاعات کاربری</a>
+                            <a href="{% url 'update_info' %}" class="btn btn-danger background-color1-op">تغییر اطلاعات آدرس و ارسال</a>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
+               
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Username:</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-plaintext">{{ user.username }}</p>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label class="col-sm-5 col-form-label">Email:</label>
-                        <div class="col-sm-7">
-                            <p class="form-control-plaintext">{{ user.mobile }}</p>
-                        </div>
-                    </div>
-                    <!-- Add similar rows for other user attributes -->
+
                 </div>
             </div>
+
         </div>
     </div>
-    <!-- User menu -->
-    <div class="row justify-content-start ">
-        <div class="col-md-3 ">
-            class="sidebar ">
-                <div class="card color1 text-white">
-                    <div class="card-body">
-                        <h5 class="card-title">User Menu</h5>
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link text-black" href="#">Orders</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-black" href="#">Addresses</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-black" href="#">Messages</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-black" href="#">User Account Information</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-black" href="{% url 'logout_view' %}">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-        </div>
-    </div>
+
 </div>
-<!-- Page content -->
+<script>
+    const click1 = document.getElementById("click1");
+    const showclick1 = document.getElementById("showclick1");
+
+    function showclicks1() {
+        showclick1.classList.remove("hiden");
+        showclick2.classList.add("hiden");
+        showclick3.classList.add("hiden");
+    }
+    click1.addEventListener('click', showclicks1)
+
+
+    const click2 = document.getElementById("click2");
+    const showclick2 = document.getElementById("showclick2");
+
+    function showclicks2() {
+        showclick2.classList.remove("hiden");
+        showclick3.classList.add("hiden");
+        showclick1.classList.add("hiden");
+
+
+    }
+    click2.addEventListener('click', showclicks2)
+
+
+
+    const click3 = document.getElementById("click3");
+    const showclick3 = document.getElementById("showclick3");
+
+    function showclicks3() {
+        showclick3.classList.remove("hiden");
+        showclick1.classList.add("hiden");
+        showclick2.classList.add("hiden");
+    }
+    click3.addEventListener('click', showclicks3)
+
+
+
+    const editclickPass = document.getElementById("clickeditPass");
+    const editshowclickPass = document.getElementById("showpass");
+
+    function editPass() {
+        editshowclickaccount.classList.add("hiden");
+        editshowclickPass.classList.remove("hiden");
+    }
+    editclickPass.addEventListener('click', editPass)
+
+    const editclickaccount = document.getElementById("clickeditaccount");
+    const editshowclickaccount = document.getElementById("showeditaccount");
+
+    function editaboutaccount() {
+        editshowclickaccount.classList.remove("hiden");
+        editshowclickPass.classList.add("hiden");
+    }
+    editclickaccount.addEventListener('click', editaboutaccount)
+</script>
 
 {% endblock %}
