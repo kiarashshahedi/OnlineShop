@@ -174,3 +174,9 @@ li {
         transform: translateX(100%);
     }
 }
+.text-color1 {
+    color: #ff3333;
+}
+p.fs-5 i.icon-red {
+    color: #ff3333;
+}
