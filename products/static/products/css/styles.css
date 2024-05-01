@@ -1,11 +1,10 @@
 @font-face {
-    font-family: "vazir";
-    src: url(/fonts/vazir.ttf);
+    font-family: 'Vazir';
+    src: url('/static/fonts/vazir.ttf') format('truetype');
 }
 
-@font-face {
-    font-family: "Tak";
-    src: url(/fonts/impact.ttf);
+body {
+    font-family: 'Vazir', sans-serif;
 }
 
 * {
@@ -23,9 +22,7 @@ svg {
     display: block;
 }
 
-body {
-    font-family: "vazir";
-}
+
 
 .Tak {
     font-family: "Tak";
