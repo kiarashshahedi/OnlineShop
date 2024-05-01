@@ -31,11 +31,14 @@
 
                     <form id="verificationForm " action="." method="post">
                         {% csrf_token %}
-
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
                         <input type="text" value="{{ mobile }}" readonly disabled class="fadeIn second border border-danger border-2 rounded-2 mb-2" name="mobile" >
                         <input class="fadeIn second border border-danger border-2 rounded-2 mb-2" type="text"  required name="otp"  placeholder="کد تایید">
                         <input class="btn btn-danger mt-2 w-100" type="submit" class="fadeIn fourth" value="Check OTP">
                     </form>
+
+                
+                    
                 </div>
                 <div id="formFooter">
                     <a class="underlineHover" href="{% url 'register_view' %}">تغییر شماره</a>

@@ -116,7 +116,8 @@
 
                 <div class="d-flex flex-column mb-3">
                     <p class="text-colorforbuyLow d-flex justify-content-center ">شما میتوانید نظر های خود را در باره این کالا ثبت کنید</p>                
-                    
+                    {% if user.is_authenticated %}
+
                     <div class="d-flex flex-column mb-3 ">
                     <div class="rate d-flex justify-content-center"">
                         <form method="post" action="{% url 'add_review' product.id %}">
@@ -142,7 +143,17 @@
                         </div>
                         <button type="submit" class="btn btn-primary">ثبت دیدگاه</button>
                     </form>
+                    {% else %}
+                <h6 class="fw-bold">ابتدا وارد شوید</h6>
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <!-- Other input fields for username, password, etc. -->
+                    <input type="hidden" name="next" value="{{ request.GET.next }}">
+                    <button type="submit" class="btn text-black btn-danger color1 mx-2"><a class="dropdown-item fw-bold" href="{% url "register_view" %}"> ورود | ثبت نام</a></button>
+                </form>
+                {% endif %}
                 </div>
+                
             </div>
             <div class="col-12 col-md-8 shadow" >
                 <div class="d-flex flex-column m-5">
@@ -164,7 +175,7 @@
                                                                 
                                  </li>
                             {% empty %}
-                                <li>No comments yet.</li>
+                                <li>- فعلا نظری ثبت نشده -</li>
                             {% endfor %}
                         </ul>
 

@@ -127,6 +127,9 @@
         }
     </style>
 {% endblock %}
+
+
+
 {% block body %}
 <section>
 <div class="container mx-auto text-center " date-aos="flip-down">
@@ -149,6 +152,8 @@
 
     <form onsubmit="return validateInput()" action="." method="post">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.META.HTTP_REFERER }}">
+
         <input type="text" required class="border  mt-3 d-flex align-content-center w-100 border-danger rounded-3" id="inputField" maxlength="11" name="mobile">
         <button class="border btn btn-danger mt-3  text-center w-100 border-danger rounded-3" type="submit" value="Submit">
             ورود
@@ -161,6 +166,10 @@
 </div>
 </section>
 {% endblock %}
+
+
+
+
 {% block js %}
 <script>
     function validateInput() {
