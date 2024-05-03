@@ -214,3 +214,7 @@ def edit_user_info(request):
     else:
         form = UserInfoForm(instance=user)
     return render(request, 'custom_loggin/edit_info.html', {'form': form})
+
+#About_us
+def about_us(request):
+    return render(request, 'custom_loggin/about_us.html')

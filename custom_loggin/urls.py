@@ -32,6 +32,8 @@ urlpatterns = [
     #update_User_info
     path('update_info/', views.update_info, name='update_info'),
 
+    #about page
+    path('about-us/', views.about_us, name="about_us" ),
 
 ]
 

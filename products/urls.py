@@ -38,7 +38,7 @@ urlpatterns = [
     path('all_products', views.all_products, name='all_products'),  
     
     #filter Products 
-    path('filter/', views.filter_products, name='filter_products'),
+    path('Discounted/', views.Discounted, name='Discounted'),
     path('CategoryFilter/', views.filter_by_category, name='filter_by_category'),
 
 

@@ -154,7 +154,12 @@
                                     {% if product.id == product_id %}
                                     <div class="d-flex justify-content-between ">
                                         <span class="d-flex ms-4 mt-3 text-colorforbuyLow fw-bold">
-                                            <small>- {{ product.name }}</small>
+                                            <small>
+                                                <p class="text-black  text-start fw-bold mt-1">
+                                                    <span class="bi bi-box text-color1  text-start  mt-1 mx-1"></span>
+                                                    {{product.name}}
+                                                </p>
+                                            </small>
                                             <span>
                                                 {% for key, value in quantities.items %}
                                                     {% if key == product.id|slugify %}

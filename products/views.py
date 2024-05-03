@@ -139,7 +139,7 @@ def all_products(request):
     return render(request, 'products/all_products.html', {'category': category, 'categories': categories, 'products': products, 'sale': sale})
 
 #FILTER PRODUCTS BY AVIABLE AND OFF :
-def filter_products(request, category_slug=None):
+def Discounted(request, category_slug=None):
     category = None
     discounted = request.GET.get('discounted')
     available = request.GET.get('available')
@@ -157,7 +157,24 @@ def filter_products(request, category_slug=None):
         
     return render(request, 'products/all_products.html', {'category': category, 'categories': categories,'products': products})
 
+#discounted on navbar 
+def Discounted(request, category_slug=None):
+    category = None
+    discounted = request.GET.get('discounted')
+    available = request.GET.get('available')
+    categories = Category.objects.all()
 
+    products = Product.objects.all()
+    
+    if discounted:
+        products = products.filter(in_sale=True)
+    if available:
+        products = products.filter(inventory__gt=0)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+        
+    return render(request, 'products/discounted.html', {'category': category, 'categories': categories,'products': products})
 
 #FILTER BY CATEGORY
 def filter_by_category(request):
