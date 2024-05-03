@@ -4,7 +4,7 @@
 {% block head_extra %}
 <style>
     .old-price {
-        background: repeating-linear-gradient(45deg, rgba(250,0,0,100), rgba(250,0,0,100), transparent 1px, transparent 9px);
+        background: repeating-linear-gradient(50deg, rgba(250,0,0,100), rgba(250,0,0,100), transparent 0.75px, transparent 4px);
         padding: 5px;
     }
   
@@ -24,23 +24,23 @@
                     <div class="border border-1 rounded-3 d-flex  shadow bg-white">
 
                         <div class="text-center col-12 col-md-3">
-                            <img class="img-fluid  " src="{{product.image.url}}" alt="">
+                            <img class="img-fluid mx-1 mt-1" src="{{product.image.url}}" alt="">
                         </div>
 
                         <!-- moshakhasat zire esm mahsol-->
                         <div class="d-block justify-content-start  ">
                             <div class=" mb-1 ">
-                            <p class="fs-5 mt-2 fw-bold">
-                                <i class="bi bi-caret-left-fill text-danger"></i>
+                            <p class="fs-5 mt-2 fw-bold mx-1">
+                                <i class="bi bi-caret-left-fill text-danger "></i>
                                 {{ product.name }}
                             </p>
                             
                             <div class="d-grid">
-                                <span class=" text-colorforbuy"><i class="bi bi-circle-fill text-dark"></i> سیاه</span>                       
+                                <span class=" text-colorforbuyLow"><i class="bi bi-circle-fill text-dark mx-3"></i> سیاه</span>                       
                             </div>
                             <!-- NESHAN DAHANDE TEDAD -->
-                            <div class="d-flex mt-1">                         
-                                <span class=" text-muted mb-4 pb-2"><i class="bi bi-clipboard-check text-danger"></i> تعداد : </span>
+                            <div class="d-flex">                         
+                                <span class=" text-muted mb-1 pb-2"><i class="bi bi-clipboard-check text-danger mx-3"></i> تعداد : </span>
                                 {% for key, value in quantities.items %}
                                 {% if key == product.id|slugify %}
                                 <option class="mx-1" selected>{{ value }}</option>
@@ -49,30 +49,59 @@
                             </div>
 
                             <!-- QEIMAT -->
-                            <div class="d-flex ">
+                            <div class=" ">
                                 {% if product.in_sale %} 
-                                <div class="d-grid text-center">
-                                    <div class="shadow bg-light mx-5 mt-1 mb-3">
+                                
+                                    <div class="d-grid mx-3 ">
 
-                                        <p>قیمت قبلی: <span class="old-price text-dark fw-bold">{{ product.price }}</span></p>
-                                        <span class=" fw-bold fs-5 text-colorforbuyLow   ">
-                                                {{ product.sale_price }} 
+                                        <span class="text-colorforbuyLow text-color1">  
+ 
+                                            <span class=" text-colorforbuyLow d-flex fw-bold">
 
-                                            <span class="text-colorforbuyLow">
-                                                <small>تومان</small>
+                                                <small>
+                                                    <s class="text-colorforbuy fw-bold mx-1">{{ product.price }}</s>
+                                                    <span><i class="bi bi-percent text-color1 fw-bold">OFF</i></span>
+
+                                                </small>
                                             </span>
-                                        </span>
 
+                                        </span>
+                                        <span class=" fw-bold fs-5 text-colorforbuyLow ">
+                                            <small>
+                                                
+                                                <span class="text-colorforbuyLow">
+                                                    <span class="text-color1">
+                                                    <span>
+                                                        <span class="text-colorforbuyLow mx-1">
+                                                            قیمت:
+                                                        </span>
+                                                        <small>{{ product.sale_price }}</small>
+                                                    </span>
+                                                    
+                                                
+                                                </span>
+                                            </small>                            
+                                        </span>
                                     </div>
-                                </div>
+                               
 
                                 {% else %}
 
-                                    <span class=" fw-bold fs-5 text-colorforbuyLow mx-1 ">
-                                         قیمت: {{ product.price }} 
-                                        <span class="text-colorforbuyLow">
-                                            <small>تومان</small>
-                                        </span>
+                                    <span class=" fw-bold fs-5 text-colorforbuyLow ">
+                                        <small>
+                                            
+                                            <span class="text-colorforbuyLow">
+                                                <span class="text-color1">
+                                                <span>
+                                                    <span class="text-colorforbuyLow mx-3">
+                                                        قیمت:
+                                                    </span>
+                                                    <small>{{ product.price }}</small>
+                                                </span>
+                                                
+                                            
+                                            </span>
+                                        </small>                            
                                     </span>
 
                                 {% endif %}  
@@ -107,27 +136,43 @@
                     </div>
                 </div>
                 {% endfor %}
+
+
+
                 <!-- box sorat hesab -->
-                <div class="col-12 col-md-11 mx-auto">
+                <div class="col-12 col-md-11 mx-auto row-cols-1">
                     <br>
 
                     <div class="text-center">
                         <button class="btn fw-bold fs-5">صورت حساب</button>
                     </div>
 
-                    <div class="shadow bg-white rounded-4 ">
-
-                        <div class="d-flex justify-content-between">
-                            <span class="text-colorforbuyLow mx-4 mt-3">
-                                <small>
-                                    قیمت محصول
-                                </small>
-                            </span>
-
-                            <span class="text-colorforbuyLow mx-3 mt-3">
-                                <small>200,000 <span>تومان</span>
-                                </small>
-                            </span>
+                    <div class="shadow bg-white rounded-4">
+                        <div class="">
+                            {% for product_id, total_price in p_totals.items %}
+                                {% for product in cart_products %}
+                                    {% if product.id == product_id %}
+                                    <div class="d-flex justify-content-between ">
+                                        <span class="d-flex ms-4 mt-3 text-colorforbuyLow fw-bold">
+                                            <small>- {{ product.name }}</small>
+                                            <span>
+                                                {% for key, value in quantities.items %}
+                                                    {% if key == product.id|slugify %}
+                                                        <option class="mx-2 text-color1" selected>{{ value }}x</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </span>
+                                        </span>
+                                        
+                                        <span class="mx-3 mt-3 text-colorforbuyLow fw-bold">
+                                            <small>{{ total_price }} 
+                                                <span>تومان</span>
+                                            </small>
+                                        </span>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
                         </div>
 
                         <div class="d-flex justify-content-between">
@@ -146,11 +191,12 @@
                         <div class="d-flex justify-content-between">
                             <span class="text-colorforbuyLow mx-4 mt-3 fw-bold" > قیمت نهایی </span>
                             <span class="text-colorforbuyLow mx-3 mt-3 fw-bold"> {{ totals }} تومان </span>
+
                         </div>
 
                         <div class="d-grid gap-2 mt-4 mx-3 ">
-                            <button type="button" class="btn btn-danger color1 rounded-2 mb-1 ">ادامه خرید</button>
-                            <button class="btn text-color1 fw-bold btn-outline-danger " onclick="window.location.href='{% url 'product_list'%}'"> بازگشت به صفحه اصلی <i class="bi mx-1"></i></button>
+                            <button type="button" class="btn btn-danger color1 rounded-2  ">ادامه خرید</button>
+                            <button class="btn text-color1 fw-bold btn-outline-danger mb-3" onclick="window.location.href='{% url 'product_list'%}'"> بازگشت به صفحه اصلی <i class="bi mx-1"></i></button>
 
                         </div>
 

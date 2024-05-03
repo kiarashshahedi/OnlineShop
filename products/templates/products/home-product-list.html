@@ -12,7 +12,7 @@
 
                 <div class="carousel-inner">
                     <div class="carousel-item active"> 
-                        <a href=""><img src="{% static 'products/img/slidebanner.webp' %}" class="d-block w-100  " alt="..."></a>
+                        <a href="{% url 'all_products' %}"><img src="{% static 'products/img/slidebanner.webp' %}" class="d-block w-100  " alt="..."></a>
                     </div>
                 </div>
 
@@ -38,7 +38,7 @@
     <!--KADR OFF BALAYE FOROSHVIZHE-->
     <div class="row border border-danger border-4 rounded-4 ">
 
-        <a href=""><img class="my-2 img-fluid d-none d-md-block" src="{% static 'products/img/off.png' %}" alt=""></a>
+        <a href="{% url 'all_products' %}"><img class="my-2 img-fluid d-none d-md-block" src="{% static 'products/img/off.png' %}" alt=""></a>
 
         <!-- BOX MAHSOLAT FOROSH VIZHE-->
         {% for product in sale %}

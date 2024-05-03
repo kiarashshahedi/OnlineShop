@@ -128,3 +128,43 @@ def add_review(request, pk):
     else:
         # Handle GET requests if necessary
         pass
+    
+    
+#all products with filter option
+def all_products(request):
+    products = Product.objects.select_related('category').all()
+    sale = Product.objects.select_related('category').filter(in_sale=True) 
+    categories = Category.objects.all()
+    
+    return render(request, 'products/all_products.html', {'category': category, 'categories': categories, 'products': products, 'sale': sale})
+
+#FILTER PRODUCTS BY AVIABLE AND OFF :
+def filter_products(request, category_slug=None):
+    category = None
+    discounted = request.GET.get('discounted')
+    available = request.GET.get('available')
+    categories = Category.objects.all()
+
+    products = Product.objects.all()
+    
+    if discounted:
+        products = products.filter(in_sale=True)
+    if available:
+        products = products.filter(inventory__gt=0)
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        products = products.filter(category=category)
+        
+    return render(request, 'products/all_products.html', {'category': category, 'categories': categories,'products': products})
+
+
+
+#FILTER BY CATEGORY
+def filter_by_category(request):
+    category_id = request.GET.get('category')
+    if category_id:
+        products = Product.objects.filter(category_id=category_id)
+    else:
+        products = Product.objects.all()
+    categories = Category.objects.all()
+    return render(request, 'products/all_products.html', {'products': products, 'categories': categories})

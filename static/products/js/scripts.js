@@ -19,3 +19,16 @@ function kia() {
 
 }
 select2.addEventListener("mouseover", kia)
+
+// JavaScript to toggle brands visibility and change icon
+const clickberand = document.getElementById("clickberand");
+const clickberandshow = document.getElementById("clickberandshow");
+const changeicon = document.getElementById("changeicon");
+
+function toggleBrands() {
+    clickberandshow.classList.toggle("hiden");
+    changeicon.classList.toggle("bi-chevron-down");
+    changeicon.classList.toggle("bi-chevron-up");
+}
+
+clickberand.addEventListener('click', toggleBrands);

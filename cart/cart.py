@@ -93,3 +93,20 @@ class Cart():
 			del self.cart[product_id]
 		self.session.modified = True  
         
+        
+	def product_total(self):
+		product_ids = self.cart.keys()                              
+		products = Product.objects.filter(id__in=product_ids)      
+		quantities = self.cart                                       
+		product_totals = {}  # Dictionary to store total price for each product
+		
+		for key, value in quantities.items():
+			key = int(key)
+			for product in products:
+				if product.id == key:
+					if product.in_sale:
+						product_totals[key] = product.sale_price * value
+					else:
+						product_totals[key] = product.price * value
+
+		return product_totals
