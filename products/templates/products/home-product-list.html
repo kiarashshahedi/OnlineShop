@@ -38,45 +38,41 @@
     <!--KADR OFF BALAYE FOROSHVIZHE-->
     <div class="row border border-danger border-4 rounded-4 ">
 
-        <a href="{% url 'all_products' %}"><img class="my-2 img-fluid d-none d-md-block" src="{% static 'products/img/off.png' %}" alt=""></a>
+        <a href="{% url 'all_products' %}"><img class="mt-1 img-fluid d-none d-md-block" src="{% static 'products/img/off.png' %}" alt=""></a>
 
         <!-- BOX MAHSOLAT FOROSH VIZHE-->
         {% for product in sale %}
 
-        <div class="col-12 col-md-2  shadow border border-3">
+        <div class="col-12 col-md-3  shadow border border-3">
             <h6 class="text-danger d-flex">  فروش ویژه </h6>
             <a href="{% url 'product_detail' product.pk  %}">
-            <img class="img-fluid rounded-1" src="{{product.image.url}}" alt="">
-            <p class="text-black  text-center fw-bold mt-1"><span class="bi bi-box text-color1  text-start  mt-1 mx-1"></span>{{product.name}}</p>
+            <img class="img-fluid rounded-1 mb-1" src="{{product.image.url}}" alt="">
+            <span class="text-black"><span class="bi bi-box text-color1 text-start me-1 "></span><small>{{product.name}}</small></span>
+            
         </a>
-
-            <div class="d-grid ">             
-                <span class=" fw-bold fs-5 text-colorforbuyLow ">
-                    <small>                    
+            <div class="d-grid text-end">             
+                <span class=" fw-bold text-colorforbuyLow ">
                         <span class="text-colorforbuyLow">
                             <span class="text-color1">
-                                <hr class="shadow"></hr>
+                                <hr>
 
-                                <span class="text-colorforbuyLow">
-                                   <small class="text-colorforbuy"> قیمت:</small>
+                                <span class="text-colorforbuyLow d-flex justify-content-start">
+                                   <small class="text-colorforbuy "> قیمت:</small>
                                 </span>
-
                                 <span class="text-colorforbuyLow text-color1">  
-                                    <span class=" text-colorforbuyLow d-flex fw-bold">
-                                        <small>
-                                            <s class="text-colorforbuyLow fw-bold">{{ product.price }}</s>
-                                            <span><i class="bi bi-percent text-color1 fw-bold"></i></span>
-                                        </small>
+                                    <span class=" text-colorforbuyLow d-flex fw-bold justify-content-end">
+                                        
+                                        <span><i class="bi bi-percent text-color1 fw-bold"></i></span>
+                                        <span><s class="text-colorforbuyLow fw-bold"><small>{{ product.price }}</small></s></span>
+                                        
                                     </span>
                                 </span>
 
                                 <small>{{ product.sale_price }}</small>
                             </span>
                         </span>
-                    </small>                            
                 </span>
             </div>
-
         </div>
 
         {% endfor %}
@@ -84,20 +80,20 @@
 </div>
 
 <!-- MAHSOLAT -->
-<div date-aos="flip-down" class="container mt-5 border border-3 shadow p-3  rounded-5">
+<div date-aos="flip-down" class="container mt-5 border border-3 rounded-5 color1">
 
     <!-- AX TITR MAHSOLAT -->
     <div class="row gx-1">
 
-        <a href=""><img class="mb-3 img-fluid rounded-3 d-none d-md-block " src="{% static 'products/img/kala.png' %}" alt=""></a>
+        <a href=""><img class="mb-3 img-fluid rounded-5 d-none d-md-block " src="{% static 'products/img/kala.png' %}" alt=""></a>
 
         <!-- BOX MAHSOLAT -->
         {% for product in products %}
-        <div class="col-6 col-md-4 ">
+        <div class="col-12 col-md-4 ">
             <a href="{% url 'product_detail' product.pk  %}">
                 <div class="">
-                    <div class="p-2 color2 border border-3 rounded-3 justify-content-between mb-3">
-                        <img class="img-thumbnail  shadow rounded-3" src="{{product.image.url}}" alt="">
+                    <div class="p-2 bg-white border border-3 rounded-3 justify-content-between mb-3">
+                        <img class="img-fluid rounded-3" src="{{product.image.url}}" alt="">
                             <div class="overflow-hidden">
                                 {% comment %} <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> {% endcomment %}
                             <p class="text-black  text-start fw-bold mt-1"><span class="bi bi-box text-color1  text-start  mt-1 mx-1"></span>{{product.name}}</p>

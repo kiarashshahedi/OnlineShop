@@ -32,3 +32,6 @@ function toggleBrands() {
 }
 
 clickberand.addEventListener('click', toggleBrands);
+
+
+

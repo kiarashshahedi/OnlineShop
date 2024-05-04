@@ -1,4 +1,5 @@
-{% extends 'products/base.html' %}    
+{% extends 'products/base.html' %}   
+{% load static %} 
 {% block body %}
 
 
@@ -43,28 +44,42 @@
                     <p class="fw-bold">شماره تماس: [ 456-4300-0996 ]</p>
                     <p>
                         <a href="https://t.me/kiyiarash">
-                            <p class="instgram1 fw-bold" id="instagram1" > Telegram<i class="bi instgram  bi-telegram h1"></i></p>
+                            <small><p class="instgram1 fw-bold " id="instagram1" > Telegram<i class="bi instgram  bi-telegram h1 text-color1"></i></p></small>
                         </a>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-4 row-cols-1 mt-5">
-            
-            <div class="d-grid mt-5">
-                <div class="d-flex ">
-                    <div class="d-grid my-auto mx-auto text-center">
+        <div class="col-12 col-md-4 row-cols-1 mt-5 ">
 
-                        <h5 class=" "></h5>
-                        <h5 class="">Our GitHub</h5>
+            <div class="d-grid mt-5">
+
+                <div class="d-flex ">
+
+                    <div class="d-grid my-auto mx-auto text-center">
+                        <h5 class="text-center text-color1 fw-bold shadow"><small>Kiarash Shahedi</small></h5>
+
                     </div>
-                    <a href="">
-                        <img id="imghoverBack" class="imghoverBack" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlxuAKV9D75DDP7pwHy6ewIJ9qqd7vWoEssIYBimIR-g&s" alt="">
-                        <img id="imgkia" class="imghoverBack hiden" src="./img/kia.png" alt="">
-                    </a>
+                    <img id="imghoverBack" class="imghoverBack" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlxuAKV9D75DDP7pwHy6ewIJ9qqd7vWoEssIYBimIR-g&s" alt="">
+                    <img id="imgkia" class="imghoverBack hiden" src="{% static 'img/kia.png' %}" alt="">
 
                 </div>
             </div>
+            <div class="d-grid mt-5">
+
+                <div class="d-flex ">
+
+                    <div class="d-grid my-auto mx-auto text-center">
+                        <h5 class="text-center text-color1 fw-bold shadow"><small>Mahdi Hoseinian</small></h5>
+
+                    </div>
+                    <img id="imghoverFront" class="imghoverBack" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlxuAKV9D75DDP7pwHy6ewIJ9qqd7vWoEssIYBimIR-g&s" alt="">
+                    <img id="imgmahdi" class="imghoverBack hiden" src="{% static 'img/mahdi.png' %}" alt="">
+
+                </div>
+            </div>
+            
+
 
         </div>
     </div>
