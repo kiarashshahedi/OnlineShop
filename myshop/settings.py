@@ -21,7 +21,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
     ]
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Dummy value for development
+STATIC_ROOT = os.path.join(BASE_DIR, 'allstatic')  # Dummy value for development
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/

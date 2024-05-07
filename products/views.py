@@ -41,6 +41,7 @@ def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     reviews = product.reviews.all()
     form = ReviewForm()
+    images = product.images.all()
 
     if request.method == 'POST':
         form = ReviewForm(request.POST)
@@ -52,7 +53,7 @@ def product_detail(request, pk):
             product.update_ratings()
             return redirect('product_detail', pk=pk)
 
-    return render(request, 'products/product_details.html', {'product': product, 'reviews': reviews, 'form': form})
+    return render(request, 'products/product_details.html', {'product': product, 'reviews': reviews, 'form': form, 'images': images})
 
 #adding product on website(for admins)
 @login_required(login_url='login')  # Require authentication to access this view
@@ -185,3 +186,8 @@ def filter_by_category(request):
         products = Product.objects.all()
     categories = Category.objects.all()
     return render(request, 'products/all_products.html', {'products': products, 'categories': categories})
+
+
+def best_selling_product(request):
+    best_selling_product = Product.objects.annotate(total_orders=Count('order')).order_by('-total_orders').first()
+    return render(request, 'best_selling_product.html', {'best_selling_product': best_selling_product})

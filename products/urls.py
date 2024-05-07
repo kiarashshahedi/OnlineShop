@@ -41,6 +41,9 @@ urlpatterns = [
     path('Discounted/', views.Discounted, name='Discounted'),
     path('CategoryFilter/', views.filter_by_category, name='filter_by_category'),
 
+    #bestSELLER
+    path('best-selling-product/', views.best_selling_product, name='best_selling_product'),
+
 
 
 

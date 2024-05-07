@@ -9,6 +9,8 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    
+    
 #All Products
 class Product(models.Model):
     name = models.CharField(max_length=255)
@@ -19,10 +21,11 @@ class Product(models.Model):
     inventory = models.PositiveIntegerField(default=0)
     average_rating = models.FloatField(default=0.0)
     total_ratings = models.IntegerField(default=0)
+    
     # adding sale 
     in_sale = models.BooleanField(default=False)
-    sale_price = models.DecimalField(default=0, max_digits=9, decimal_places=3)
-
+    sale_price = models.DecimalField(default=0, max_digits=9, decimal_places=3)    
+    
     def update_ratings(self):
         reviews = self.reviews.all()
         total_ratings = reviews.count()
@@ -33,11 +36,21 @@ class Product(models.Model):
             self.average_rating = 0.0
         self.total_ratings = total_ratings
         self.save()
+    
+    def total_orders(self):
+        return self.order_set.filter(status=True).count()
 
     def __str__(self):
         return self.name
     
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='product_images/')
 
+    def __str__(self):
+        return f"Image of {self.product.name}"
+    
+    
 #the rate of the product
 class Review(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
@@ -47,7 +60,7 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ['product', 'user']
+        unique_together = []
 
 
     def __str__(self):
