@@ -60,13 +60,13 @@
 
 <div class="container mt-5">
 
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row shadow">
+        <div class="col-md-5">
             <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     {% for image in images %}
                     <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                        <img src="{{ image.image.url }}" class="d-block w-100" alt="Product Image">
+                        <img src="{{ image.image.url }}" class="d-block img-fluid" alt="Product Image">
                     </div>
                     {% endfor %}
                 </div>
@@ -80,18 +80,23 @@
                 </button>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card card-product shadow">
+        <div class="col-md-7 col-12">
+            <div class=" card-product my-3 ">
                 <div class="card-body text-center">
                     <h2 class="card-title">{{ product.name }}</h2>
-                    <p class="card-text mt-3">
+                    <h5 class="text-colorforbuyLow text-start mt-4"> <small>مشخصات:</small></h5>
+                    <h6 class="text-colorforbuy text-start">سری پردازنده: <span class="text-black">Core i7</span></h6>
+                    <h6 class="text-colorforbuy text-start">سازنده پردازنده: <span class="text-black">Intel</span> </h6>
+                    <h6 class="text-colorforbuy text-start">فرکانس کاری پردازنده: <span class="text-black">UP To 2.7 GHz</span> </h6>
+                    <p class="card-text mt-3 text-end fw-bold text-color1 ">
                         {% if product.in_sale %}
                         <s>{{ product.price }}</s> {{ product.sale_price }} 
                         {% else %}
                         {{ product.price }}
                         {% endif %}
-                        <small>تومان</small>
+                        <small class="text-black">تومان</small>
                     </p>
+                    
                     <div class="input-group input-group-sm my-3">
                         <button class="btn btn-sm btn-outline-danger" type="button" onclick="increaseQuantity()">
                             <i class="bi bi-plus"></i>
@@ -110,13 +115,14 @@
                     </div>
                     <button class="btn btn-danger rounded-pill fw-bold py-2" type="button" value="{{ product.id }}" id="add-cart">افزودن به سبد خرید</button>
                     <p class="text-muted mt-2">تعداد موجود در انبار: {{ product.inventory }}</p>
+                    
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row mt-5">
-        <div class="col-md-12">
+        <div class="col-md-12 col-12">
             <div class="card card-product shadow">
                 <div class="card-body">
                     <h4 class="card-title ">توضیحات محصول:</h4>

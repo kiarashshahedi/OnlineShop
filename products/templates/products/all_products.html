@@ -88,11 +88,13 @@
                 <div class="image-container">
                     
                     <a href="{% url 'product_detail' product.pk  %}">
-                        <span class="text-color1 ms-3 mt-5 fw-bold"><small>تخفیف شگفت انگیز</small></span>
-                        <img class="img-fluid" src="{{product.image.url}}" alt="">
-                        <p class="text-center text-black">{{ product.name }}</p>
-                        <p class="text-end text-colorforbuyLow fw-bold" style="font-size: 15px; margin-bottom: 10px;"><small>قیمت قدیم: </small>{{ product.price }}</p>
-                        <p class="text-end text-colorforbuyLow fw-bold" style="margin-top: -10px;">{{ product.sale_price }}</p>
+                        <div class="text-center">
+                        <img class="img-fluid w-75" src="{{product.image.url}}" alt="">
+                        </div>
+                        <h6 class="text-start text-black"><small>{{ product.name }}</small></h6>
+                        <h6 class="text-end text-colorforbuyLow fw-bold" ><small><small>قیمت :{{ product.sale_price }}</small></small></h6>
+                        <h6 class="text-end text-color1 fw-bold" ><small><small><small><s> {{ product.price }}</s></small></small></small></h6>
+
 
                     </a>
 
@@ -105,9 +107,15 @@
                 <div class="image-container">
 
                     <a href="{% url 'product_detail' product.pk  %}">
-                        <img class="img-fluid" src="{{product.image.url}}" alt="">
-                        <p class="text-start text-black mx-1 mt-3">{{ product.name }}</p>
-                        <p class="text-end text-colorforbuyLow fw-bold price-container "><small>قیمت</small> : {{ product.price }}</p>
+                        <div class="text-center">
+                        <img class="img-fluid w-75" src="{{product.image.url}}" alt="">
+                        </div>
+                        <h6 class="text-start text-black mt-3"><small><small>{{ product.name }}</small></small></h6>
+                        
+                        <div class="text-end">
+                            
+                            <h6 class="text-end text-colorforbuyLow fw-bold price-container "><small><small class="d-grid my-2">قیمت: {{ product.price }}</small></small></h6>
+                        </div>
                     </a>
 
                 </div>

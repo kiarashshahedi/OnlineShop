@@ -1,5 +1,5 @@
 {% extends 'products/base.html' %}
-
+{% load static%}
 {% block head_extra %}
 <style>
     .image-container {
@@ -9,12 +9,25 @@
     .image-container:hover {
         transform: scale(1.05);
     }
-   
+    .image-container {
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    .image-container:hover {
+        transform: scale(1.01);
+    }
 </style>
 {% endblock %}
 
 {% block body %}
+
+
 <div class="container mt-3 ">
+    <!--img-->
+<div class=" border border-danger rounded-2 mb-1">
+    <img class="img-fluid" src="{% static '/img/takhfif.png' %}" alt="">
+
+</div>
 
     <div class="row ">
 
@@ -37,12 +50,37 @@
     </div>
 </div>
 
-<p class="text-color1 fw-bold text-center mx-5 ">
-    <i class="bi bi-percent text-color1 fw-bold mx-1 ">OFF</i>
-    تخفیف خورده ها
-    <i class="bi bi-percent text-color1 fw-bold mx-1 ">OFF</i>
-</p>
-<div class="col-12 col-md-9 row row-cols-2 row-cols-lg-4 g-2 gx-md-4 mx-4 mt-3">
+
+<div class="container mt-3">
+    
+    <div class="row  row-cols-2 mx-auto mt-2 gx-2 ">
+        {% for product in products %}
+        {% if  product.in_sale %}
+        <div class="col-6 col-md-3 border border-1 hoverborder shadow rounded-3" onmouseover="addHoverClass(this)" onmouseout="removeHoverClass(this)">
+            <div class="card-body mt-4 image-container">
+                <img class="img-fluid" src="{{product.image.url}}" alt="">
+                <div class="">
+
+                    <h6 class="card-title ">{{ product.name }}</h6>
+                    <div class="text-end mt-1">
+
+                        <p class="text-end text-colorforbuyLow fw-bold" style="font-size: 15px; margin-bottom: 10px;"><small>قیمت قدیم: </small>{{ product.price }}</p>
+                        <p class="card-text text-color1">{{ product.sale_price }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+{% comment %} <div class="col-12 col-md-9 row row-cols-2 row-cols-lg-4 g-2 gx-md-4 mx-4 mt-3">
     {% for product in products %}
     {% if  product.in_sale %}
 
@@ -62,5 +100,17 @@
     </div>
 
     {% endif %}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
+    <script>
+        // JavaScript
+        function addHoverClass(element) {
+            element.classList.add("border-danger");
+            element.classList.add("shadow");
+        }
+
+        function removeHoverClass(element) {
+            element.classList.remove("border-danger");
+            element.classList.remove("shadow"); 
+        }
+    </script>
 {% endblock %}

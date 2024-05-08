@@ -265,3 +265,12 @@ p.fs-5 i.icon-red {
 .original-price {
     color: #12331e;
 }
+
+.fixed-bottom-options {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f8f9fa;
+    padding: 5px;
+}

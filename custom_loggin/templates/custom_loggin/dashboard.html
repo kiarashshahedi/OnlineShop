@@ -76,46 +76,46 @@
 {% block body %}
 
 <div class="container mt-5  ">
-    <div class="row mt-3 mx-5 ">
+    <div class="row mt-3  ">
         <div class="col-12 col-md-3 border border-4 rounded-2">
 
             <ul class="mt-4 ">
-                <li id="click1" class=" mt-3 dashboard d-flex text-center border-bottom">
-                    <button class="btn">
+                <div id="click1" class=" mt-3 dashboard d-flex text-start border-bottom">
+                    <button class="btn d-flex">
 
                         <i class="bi bi-person-circle mx-2 h4 "></i>
-                        <span class=" mt-1 fw-bold ">
+                        <p class=" mt-1 fw-bold  ">
                             اطلاعات حساب
-                        </span>
+                        </p>
                     </button>
 
-                </li>
+                </div>
 
-                <li id="click2" class=" mt-3 dashboard d-flex text-center border-bottom">
-                    <button class="btn">
+                <div id="click2" class=" mt-3 dashboard d-flex text-center border-bottom">
+                    <button class="btn d-flex">
                     <i class="bi bi-box-seam mx-2 h4 "></i>
-                    <span class=" mt-0 fw-bold ">
+                    <p class=" mt-0 fw-bold ">
                 سفارش ها
-                    </span>
+                    </p>
                 </button>
-                </li>
+                </div>
 
-                <li id="click3" class=" mt-3 dashboard d-flex text-center border-bottom">
-                    <button class="btn">
-                    <i class="bi bi-pencil-square mx-2 mt-3 h4 "></i>
-                    <span class=" mb-2 fw-bold ">
+                <div id="click3" class=" mt-3 dashboard d-flex text-center border-bottom">
+                    <button class="btn d-flex">
+                    <i class="bi bi-pencil-square mx-2 h4 "></i>
+                    <p class=" fw-bold ">
                    ویرایش حساب 
-                    </span>
+                    </p>
                 </button>
-                </li>
+                </div>
 
-                <!--  -->
-                <li class="mt-3 dashboard d-flex text-center ">
-                    <button class="btn">
+                <!-- logout -->
+                <div class="mt-3 dashboard d-flex text-center ">
+                    <button class="btn d-flex">
                     <i class="bi bi-box-arrow-right mx-2 h4 "></i>
-                    <span class=" mt-0 fw-bold "><a  href="{% url 'logout_view' %}">خروج</a></span>
+                    <p class=" mt-0 fw-bold "><a  href="{% url 'logout_view' %}">خروج</a></p>
                 </button>
-                </li>
+                </div>
             </ul>
         </div>
 
@@ -127,9 +127,9 @@
                     <div class="d-flex text-center mx-3 mt-3">
 
                         <i class="bi bi-person mx-2 h3 text-primary  "></i>
-                        <span class=" mt-1 fw-bold fw-bold ">
+                        <p class=" mt-1 fw-bold fw-bold ">
                             مشخصات 
-                        </span>
+                        </p>
 
                     </div>
                     <div class=" col-12 col-md-9 mx-auto   mx-5 ">
@@ -178,33 +178,26 @@
 
 
                 <!-- VIRAYESH HESAB KARBARI -->
-                <div id="showclick3" class=" hiden bg-white rounded-3 border-3 border bg-white border-primary">
+                <div id="showclick3" class=" hiden bg-white rounded-3 border-2 border bg-white border-primary">
                     <div class="">
 
-                        <div class="d-flex text-center mx-3 mt-3">
+                        <div class=" text-center mx-3 mt-3">
 
                             <i class="bi bi-pencil-square mx-2 h3 text-primary  "></i>
-                            <span class=" mt-1 fw-bold fw-bold ">
+                            <p class=" mt-1 fw-bold fw-bold ">
                             ویرایش حساب کاربری
-                        </span>
-                        </div>
-
-
-
+                        </p>
                         <!-- LIST FOR EDIT ACCOUNT -->
-                        <br>
-                        <br>
-                        <br>
-                        <div class="text-center">
-                            <a href="{% url 'update_password' %}" class="btn btn-danger background-color1-op">تغییر رمز عبور</a>
-                            <a href="{% url 'update_user' %}" class="btn btn-danger background-color1-op">تغییر اطلاعات کاربری</a>
-                            <a href="{% url 'update_info' %}" class="btn btn-danger background-color1-op">تغییر اطلاعات آدرس و ارسال</a>
+                        
+                        <div class="text-center mb-3">
+                            <a href="{% url 'update_password' %}" class="btn btn-outline-primary ">تغییر رمز عبور</a>
+                            <a href="{% url 'update_user' %}" class="btn btn-outline-primary  ">تغییر اطلاعات کاربری</a>
+                            <a href="{% url 'update_info' %}" class="btn btn-outline-primary  ">تغییر اطلاعات آدرس و ارسال</a>
                         </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        
+                        </div>
 
+                        
                
                         </div>
                     </div>
