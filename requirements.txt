@@ -61,3 +61,4 @@ pillow
 elasticsearch>=2.0.0,<3.0.0
 background_task
 #npm install mdb-ui-kit
+gunicorn
